@@ -20,4 +20,8 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\big_core.Api\big_core.Api.csproj" />
+  </ItemGroup>
+
 </Project>
