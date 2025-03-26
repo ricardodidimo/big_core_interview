@@ -6,12 +6,12 @@ using FluentValidation;
 
 namespace big_core.Api.Services
 {
-    public class OdometerWebService(IOdometerRepository odometerRepository, IValidator<GetOdemeterTrackerListFilterDTO> validator) : IOdometerService
+    public class OdometerWebService(IOdometerRepository odometerRepository, IValidator<GetOdometerTrackerListFilterDTO> validator) : IOdometerService
     {
         private readonly IOdometerRepository _odometerRepository = odometerRepository;
-        private readonly IValidator<GetOdemeterTrackerListFilterDTO> _validator = validator;
+        private readonly IValidator<GetOdometerTrackerListFilterDTO> _validator = validator;
 
-        public async Task<IResult<GetOdometerTrackListDTO>> GetTracker(GetOdemeterTrackerListFilterDTO filter)
+        public async Task<IResult<GetOdometerTrackListDTO>> GetTracker(GetOdometerTrackerListFilterDTO filter)
         {
             var validationResult = _validator.Validate(filter);
             if (!validationResult.IsValid)

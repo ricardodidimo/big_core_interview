@@ -22,7 +22,7 @@ public class ServiceGetTrackerTest
     [Fact]
     public async Task ServiceGetTracker_OnSuccess_ShouldReturnOkAsExpected()
     {
-        GetOdemeterTrackerListFilterDTO getTrackerInput = new(
+        GetOdometerTrackerListFilterDTO getTrackerInput = new(
             DateTime.UtcNow.Subtract(TimeSpan.FromDays(3)),
             DateTime.UtcNow.Subtract(TimeSpan.FromHours(2)),
             Array.Empty<string>(),
@@ -39,7 +39,7 @@ public class ServiceGetTrackerTest
     [Fact]
     public async Task ServiceGetTracker_OnStartDateBiggerThanCurrentDate_ShouldReturnValidationError()
     {
-        GetOdemeterTrackerListFilterDTO getTrackerInput = new(
+        GetOdometerTrackerListFilterDTO getTrackerInput = new(
             DateTime.UtcNow.AddDays(1),
             DateTime.UtcNow,
             Array.Empty<string>(),
@@ -57,7 +57,7 @@ public class ServiceGetTrackerTest
     [Fact]
     public async Task ServiceGetTracker_OnStartDateBiggerThanEndDate_ShouldReturnValidationError()
     {
-        GetOdemeterTrackerListFilterDTO getTrackerInput = new(
+        GetOdometerTrackerListFilterDTO getTrackerInput = new(
             DateTime.UtcNow,
             DateTime.UtcNow.Subtract(TimeSpan.FromDays(1)),
             Array.Empty<string>(),
@@ -77,7 +77,7 @@ public class ServiceGetTrackerTest
     {
         DateTime limitDate = DateTime.UtcNow.Subtract(TimeSpan.FromDays(CommonConstants.RangeLimitForOdometerTrackDateSearch));
 
-        GetOdemeterTrackerListFilterDTO getTrackerInput = new(
+        GetOdometerTrackerListFilterDTO getTrackerInput = new(
             limitDate.Subtract(TimeSpan.FromDays(1)),
             DateTime.UtcNow,
             Array.Empty<string>(),
@@ -95,7 +95,7 @@ public class ServiceGetTrackerTest
     [Fact]
     public async Task ServiceGetTracker_OnEndDateLowerThanStartDate_ShouldReturnValidationError()
     {
-        GetOdemeterTrackerListFilterDTO getTrackerInput = new(
+        GetOdometerTrackerListFilterDTO getTrackerInput = new(
             DateTime.UtcNow.Add(TimeSpan.FromDays(2)),
             DateTime.UtcNow,
             Array.Empty<string>(),
@@ -113,7 +113,7 @@ public class ServiceGetTrackerTest
     [Fact]
     public async Task ServiceGetTracker_OnFilterContainsEmptyStrings_ShouldReturnValidationError()
     {
-        GetOdemeterTrackerListFilterDTO getTrackerInput = new(
+        GetOdometerTrackerListFilterDTO getTrackerInput = new(
             DateTime.UtcNow.Subtract(TimeSpan.FromDays(3)),
             DateTime.UtcNow,
             new string[] { "" },
@@ -131,7 +131,7 @@ public class ServiceGetTrackerTest
     [Fact]
     public async Task ServiceGetTracker_OnPageActiveNegative_ShouldReturnValidationError()
     {
-        GetOdemeterTrackerListFilterDTO getTrackerInput = new(
+        GetOdometerTrackerListFilterDTO getTrackerInput = new(
             DateTime.UtcNow.Subtract(TimeSpan.FromDays(3)),
             DateTime.UtcNow,
             Array.Empty<string>(),
@@ -149,7 +149,7 @@ public class ServiceGetTrackerTest
     [Fact]
     public async Task ServiceGetTracker_OnRowsZeroOrNegative_ShouldReturnValidationError()
     {
-        GetOdemeterTrackerListFilterDTO getTrackerInput = new(
+        GetOdometerTrackerListFilterDTO getTrackerInput = new(
             DateTime.UtcNow.Subtract(TimeSpan.FromDays(3)),
             DateTime.UtcNow,
             Array.Empty<string>(),

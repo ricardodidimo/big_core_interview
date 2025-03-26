@@ -6,7 +6,7 @@ using System;
 
 namespace big_core.Api.Validators
 {
-    public class GetOdometerTrackerListFilterValidator : AbstractValidator<GetOdemeterTrackerListFilterDTO>
+    public class GetOdometerTrackerListFilterValidator : AbstractValidator<GetOdometerTrackerListFilterDTO>
     {
         public GetOdometerTrackerListFilterValidator()
         {
