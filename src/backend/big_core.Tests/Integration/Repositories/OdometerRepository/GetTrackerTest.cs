@@ -2,33 +2,15 @@ namespace big_core.Tests.Integration.Repositories.OdometerRepository;
 
 using FluentAssertions;
 using FluentResults;
-using Microsoft.Extensions.DependencyInjection;
-using big_core.Common;
 using big_core.Api.Models.DTO;
+using big_core.Api.Repository.Odometer;
 
-public class GetTrackerTest
+[Collection("OdometerRepository Collection")]
+public class GetTrackerTest(OdometerRepositoryFixture fixture)
 {
-    private readonly IOdometerRepository _odometerRepository;
+    private readonly IOdometerRepository _odometerRepository = fixture.OdometerRepository;
     private readonly string CITROSUCO_ID = "39";
     private readonly string GLP_ID = "42";
-
-    public GetTrackerTest()
-    {
-        var baseUrl = Environment.GetEnvironmentVariable(CommonConstants.ApiBaseUrlKey) ?? throw new Exception("API_BASE_URL is missing");
-        var authHeaderToken = Environment.GetEnvironmentVariable(CommonConstants.ApiAuthHeaderTokenKey) ?? throw new Exception("API_AUTH_HEADER_TOKEN is missing");
-
-        var serviceCollection = new ServiceCollection();
-        serviceCollection.AddHttpClient<IOdometerRepository, OdometerHttpRepository>(client =>
-        {
-            client.BaseAddress = new Uri(baseUrl);
-            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(
-                "Basic", authHeaderToken
-            );
-        });
-
-        var serviceProvider = serviceCollection.BuildServiceProvider();
-        _odometerRepository = serviceProvider.GetRequiredService<IOdometerRepository>();
-    }
 
     [Fact]
     public async Task GetTrackerList_OnSuccess_ShouldReturnOkAsExpected()
