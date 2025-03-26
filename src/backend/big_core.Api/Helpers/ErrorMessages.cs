@@ -6,7 +6,7 @@ public static class ErrorMessages
     public const string REQUIRED_END_DATE = "End date is required";
     public const string API_REQUEST_FAILED_ERROR = "API request failed";
     public const string UNEXPECTED_API_RESPONSE_ERROR = "Unable to deserialize response";
-    public const string FUTURE_DATE_ERROR = "Start date cannot be in the future.";
+    public const string FUTURE_DATE_ERROR = "Date cannot be in the future.";
     public const string BIGGER_START_DATE_ERROR = "Start date cannot be greater than the end date.";
     public const string LOWER_END_DATE_ERROR = "End date cannot be lower than the start date.";
     public const string DATE_OUT_OF_RANGE = "Date is out of the allowed range.";
