@@ -1,6 +1,7 @@
 namespace big_core.Tests.Integration.Repositories.OdometerRepository;
 
 using FluentAssertions;
+using FluentResults;
 using Microsoft.Extensions.DependencyInjection;
 using big_core.Common;
 using big_core.Api.Models.DTO;
