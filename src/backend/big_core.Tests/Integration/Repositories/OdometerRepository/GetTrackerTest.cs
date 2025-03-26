@@ -9,8 +9,8 @@ using big_core.Api.Repository.Odometer;
 public class GetTrackerTest(OdometerRepositoryFixture fixture)
 {
     private readonly IOdometerRepository _odometerRepository = fixture.OdometerRepository;
-    private readonly string CITROSUCO_ID = "39";
-    private readonly string GLP_ID = "42";
+    private readonly int CITROSUCO_ID = 39;
+    private readonly int GLP_ID = 42;
 
     [Fact]
     public async Task GetTrackerList_OnSuccess_ShouldReturnOkAsExpected()

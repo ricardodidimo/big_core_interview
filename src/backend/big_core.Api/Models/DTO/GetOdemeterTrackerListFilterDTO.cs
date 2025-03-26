@@ -5,7 +5,7 @@ public record GetOdemeterTrackerListFilterDTO(
     DateTime EndDate,
     string[] IdTms,
     string[] LicensePlates,
-    string[] DivisionIds,
+    int[] DivisionIds,
     int Rows,
     int Page
 );
