@@ -26,7 +26,7 @@ public class ServiceGetTrackerTest
             0
         );
 
-        IResult<OdometerTrackList> result = await _odometerService.GetTracker(getTrackerInput);
+        IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
         result.IsFailed.Should().BeFalse();
     }
 
@@ -43,7 +43,7 @@ public class ServiceGetTrackerTest
             0
         );
 
-        IResult<OdometerTrackList> result = await _odometerService.GetTracker(getTrackerInput);
+        IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
         result.IsFailed.Should().BeTrue();
         result.Errors.Should().Contain(e => e.Message.Contains(ErrorMessages.FUTURE_DATE_ERROR));
     }
@@ -61,7 +61,7 @@ public class ServiceGetTrackerTest
             0
         );
 
-        IResult<OdometerTrackList> result = await _odometerService.GetTracker(getTrackerInput);
+        IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
         result.IsFailed.Should().BeTrue();
         result.Errors.Should().Contain(e => e.Message.Contains(ErrorMessages.BIGGER_START_DATE_ERROR));
     }
@@ -81,7 +81,7 @@ public class ServiceGetTrackerTest
             0
         );
 
-        IResult<OdometerTrackList> result = await _odometerService.GetTracker(getTrackerInput);
+        IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
         result.IsFailed.Should().BeTrue();
         result.Errors.Should().Contain(e => e.Message.Contains(ErrorMessages.DATE_OUT_OF_RANGE));
     }
@@ -99,7 +99,7 @@ public class ServiceGetTrackerTest
             0
         );
 
-        IResult<OdometerTrackList> result = await _odometerService.GetTracker(getTrackerInput);
+        IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
         result.IsFailed.Should().BeTrue();
         result.Errors.Should().Contain(e => e.Message.Contains(ErrorMessages.EMPTY_STRING_FILTER_ERROR));
     }
@@ -117,7 +117,7 @@ public class ServiceGetTrackerTest
             -1
         );
 
-        IResult<OdometerTrackList> result = await _odometerService.GetTracker(getTrackerInput);
+        IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
         result.IsFailed.Should().BeTrue();
         result.Errors.Should().Contain(e => e.Message.Contains(ErrorMessages.INVALID_PAGE_ACTIVE));
     }
@@ -135,7 +135,7 @@ public class ServiceGetTrackerTest
             1
         );
 
-        IResult<OdometerTrackList> result = await _odometerService.GetTracker(getTrackerInput);
+        IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
         result.IsFailed.Should().BeTrue();
         result.Errors.Should().Contain(e => e.Message.Contains(ErrorMessages.INVALID_ROWS_ERROR));
 
