@@ -87,6 +87,24 @@ public class ServiceGetTrackerTest
     }
 
     [Fact]
+    public async Task ServiceGetTracker_OnEndDateLowerThanStartDate_ShouldReturnValidationError()
+    {
+        GetOdemeterTrackerListFilterDTO getTrackerInput = new(
+            DateTime.UtcNow.Add(TimeSpan.FromDays(2)),
+            DateTime.UtcNow,
+            Array.Empty<string>(),
+            Array.Empty<string>(),
+            Array.Empty<int>(),
+            10,
+            0
+        );
+
+        IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
+        result.IsFailed.Should().BeTrue();
+        result.Errors.Should().Contain(e => e.Message.Contains(ErrorMessages.LOWER_END_DATE_ERROR));
+    }
+
+    [Fact]
     public async Task ServiceGetTracker_OnFilterContainsEmptyStrings_ShouldReturnValidationError()
     {
         GetOdemeterTrackerListFilterDTO getTrackerInput = new(
