@@ -16,7 +16,6 @@ project.assets.json
 *.ilk
 *.idb
 
-.vscode/
 node_modules/
 npm-debug.log*
 yarn-error.log
