@@ -2,6 +2,8 @@ namespace big_core.Tests.Unit.Services.OdometerService;
 
 using big_core.Api.Helpers;
 using big_core.Api.Models.DTO;
+using big_core.Api.Services;
+using big_core.Api.Validators;
 using big_core.Common;
 using FluentAssertions;
 using FluentResults;
@@ -9,16 +11,20 @@ using FluentResults;
 
 public class ServiceGetTrackerTest
 {
+    private readonly FakeOdometerRepository _odometerRepository = new();
     private readonly IOdometerService _odometerService;
 
-    private readonly FakeOdometerRepository _odometerRepository = new();
+    public ServiceGetTrackerTest()
+    {
+        _odometerService = new OdometerWebService(_odometerRepository, new GetOdometerTrackerListFilterValidator());
+    }
 
     [Fact]
     public async Task ServiceGetTracker_OnSuccess_ShouldReturnOkAsExpected()
     {
         GetOdemeterTrackerListFilterDTO getTrackerInput = new(
             DateTime.UtcNow.Subtract(TimeSpan.FromDays(3)),
-            DateTime.UtcNow,
+            DateTime.UtcNow.Subtract(TimeSpan.FromHours(2)),
             Array.Empty<string>(),
             Array.Empty<string>(),
             Array.Empty<int>(),
