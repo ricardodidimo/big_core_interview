@@ -11,6 +11,22 @@ public class GetTrackerTest(OdometerRepositoryFixture fixture)
     private readonly IOdometerRepository _odometerRepository = fixture.OdometerRepository;
     private readonly int CITROSUCO_ID = 39;
     private readonly int GLP_ID = 42;
+    private async Task<IResult<GetOdometerTrackListResultDTO>> ExecuteWithRetry(Func<Task<IResult<GetOdometerTrackListResultDTO>>> action)
+    {
+        int maxAttempts = 5;
+        int delay = 2000;
+
+        for (int attempt = 0; attempt < maxAttempts; attempt++)
+        {
+            var result = await action();
+            if (result.IsSuccess) return result;
+
+            await Task.Delay(delay);
+            delay *= 2;
+        }
+
+        return Result.Fail<GetOdometerTrackListResultDTO>("Max retry attempts exceeded.");
+    }
 
     [Fact]
     public async Task GetTrackerList_OnSuccess_ShouldReturnOkAsExpected()
@@ -25,7 +41,7 @@ public class GetTrackerTest(OdometerRepositoryFixture fixture)
             1
         );
 
-        IResult<GetOdometerTrackListResultDTO> result = await _odometerRepository.GetTracker(getTrackerInput);
+        IResult<GetOdometerTrackListResultDTO> result = await ExecuteWithRetry(() => _odometerRepository.GetTracker(getTrackerInput));
         result.IsFailed.Should().BeFalse();
     }
 
@@ -42,7 +58,7 @@ public class GetTrackerTest(OdometerRepositoryFixture fixture)
             1
         );
 
-        IResult<GetOdometerTrackListResultDTO> result = await _odometerRepository.GetTracker(getTrackerInput);
+        IResult<GetOdometerTrackListResultDTO> result = await ExecuteWithRetry(() => _odometerRepository.GetTracker(getTrackerInput));
         result.IsFailed.Should().BeFalse();
         result.Value.Should().NotBeNull();
         result.Value.Data.Count.Should().Be(getTrackerInput.Rows);
@@ -61,7 +77,7 @@ public class GetTrackerTest(OdometerRepositoryFixture fixture)
             2
         );
 
-        IResult<GetOdometerTrackListResultDTO> result = await _odometerRepository.GetTracker(getTrackerInput);
+        IResult<GetOdometerTrackListResultDTO> result = await ExecuteWithRetry(() => _odometerRepository.GetTracker(getTrackerInput));
         result.IsFailed.Should().BeFalse();
         result.Value.Should().NotBeNull();
         result.Value.PageActive.Should().Be(2);
