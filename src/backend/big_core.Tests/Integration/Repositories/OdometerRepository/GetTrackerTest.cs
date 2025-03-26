@@ -3,6 +3,7 @@ namespace big_core.Tests.Integration.Repositories.OdometerRepository;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using big_core.Common;
+using big_core.Api.Models.DTO;
 
 public class GetTrackerTest
 {
@@ -31,16 +32,15 @@ public class GetTrackerTest
     [Fact]
     public async Task GetTrackerList_OnSuccess_ShouldReturnOkAsExpected()
     {
-        GetOdemeterTrackerListFilterDTO getTrackerInput = new()
-        {
-            StartDate = DateTime.Now.Subtract(TimeSpan.FromDays(3)),
-            EndDate = DateTime.Now,
-            IdTms = Array.Empty<string>(),
-            LicensePlates = Array.Empty<string>(),
-            DivisionIds = [CITROSUCO_ID, GLP_ID],
-            Rows = 10,
-            Page = 1
-        };
+        GetOdemeterTrackerListFilterDTO getTrackerInput = new(
+            DateTime.UtcNow.Subtract(TimeSpan.FromDays(3)),
+            DateTime.UtcNow,
+            Array.Empty<string>(),
+            Array.Empty<string>(),
+            [CITROSUCO_ID, GLP_ID],
+            10,
+            1
+        );
 
         IResult<GetOdometerTrackListResultDTO> result = await _odometerRepository.GetTracker(getTrackerInput);
         result.IsFailed.Should().BeFalse();
@@ -49,16 +49,15 @@ public class GetTrackerTest
     [Fact]
     public async Task GetTrackerList_OnCustomNumberOfRowsPerPageSetted_ShouldReturnsExpectedCount()
     {
-        GetOdemeterTrackerListFilterDTO getTrackerInput = new()
-        {
-            StartDate = DateTime.Now.Subtract(TimeSpan.FromDays(3)),
-            EndDate = DateTime.Now,
-            IdTms = Array.Empty<string>(),
-            LicensePlates = Array.Empty<string>(),
-            DivisionIds = Array.Empty<string>(),
-            Rows = 2,
-            Page = 1
-        };
+        GetOdemeterTrackerListFilterDTO getTrackerInput = new(
+            DateTime.UtcNow.Subtract(TimeSpan.FromDays(3)),
+            DateTime.UtcNow,
+            Array.Empty<string>(),
+            Array.Empty<string>(),
+            [CITROSUCO_ID, GLP_ID],
+            2,
+            1
+        );
 
         IResult<GetOdometerTrackListResultDTO> result = await _odometerRepository.GetTracker(getTrackerInput);
         result.IsFailed.Should().BeFalse();
@@ -69,16 +68,15 @@ public class GetTrackerTest
     [Fact]
     public async Task GetTrackerList_OnCustomActivePageSetted_ShouldReturnsExpectedIndex()
     {
-        GetOdemeterTrackerListFilterDTO getTrackerInput = new()
-        {
-            StartDate = DateTime.Now.Subtract(TimeSpan.FromDays(3)),
-            EndDate = DateTime.Now,
-            IdTms = Array.Empty<string>(),
-            LicensePlates = Array.Empty<string>(),
-            DivisionIds = Array.Empty<string>(),
-            Rows = 2,
-            Page = 2
-        };
+        GetOdemeterTrackerListFilterDTO getTrackerInput = new(
+            DateTime.UtcNow.Subtract(TimeSpan.FromDays(3)),
+            DateTime.UtcNow,
+            Array.Empty<string>(),
+            Array.Empty<string>(),
+            [CITROSUCO_ID, GLP_ID],
+            10,
+            2
+        );
 
         IResult<GetOdometerTrackListResultDTO> result = await _odometerRepository.GetTracker(getTrackerInput);
         result.IsFailed.Should().BeFalse();
