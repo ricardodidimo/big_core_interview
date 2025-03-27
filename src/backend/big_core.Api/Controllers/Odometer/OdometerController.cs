@@ -27,7 +27,7 @@ public class OdometerController(IOdometerService odometerService) : ControllerBa
     [ProducesResponseType(typeof(string), 500)]
     public async Task<IActionResult> GetOdometerTracker([FromQuery] GetOdometerTrackerListFilterDTO filter)
     {
-        var result = await _odometerService.GetTracker(filter);
+        var result = await _odometerService.GetTrackerAsync(filter);
 
         if (result.IsFailed)
             return BadRequest(result.Errors);

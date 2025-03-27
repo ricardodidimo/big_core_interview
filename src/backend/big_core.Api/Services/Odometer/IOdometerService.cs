@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 public interface IOdometerService
 {
-    Task<IResult<GetOdometerTrackListDTO>> GetTracker(GetOdometerTrackerListFilterDTO filter);
+    Task<IResult<GetOdometerTrackListDTO>> GetTrackerAsync(GetOdometerTrackerListFilterDTO filter);
 }

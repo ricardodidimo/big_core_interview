@@ -12,7 +12,7 @@ public class OdometerWebService(IOdometerRepository odometerRepository, IValidat
     private readonly IOdometerRepository _odometerRepository = odometerRepository;
     private readonly IValidator<GetOdometerTrackerListFilterDTO> _validator = validator;
 
-    public async Task<IResult<GetOdometerTrackListDTO>> GetTracker(GetOdometerTrackerListFilterDTO filter)
+    public async Task<IResult<GetOdometerTrackListDTO>> GetTrackerAsync(GetOdometerTrackerListFilterDTO filter)
     {
         var validationResult = _validator.Validate(filter);
         if (!validationResult.IsValid)

@@ -32,7 +32,7 @@ public class ServiceGetTrackerTest
             0
         );
 
-        IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
+        IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTrackerAsync(getTrackerInput);
         result.IsFailed.Should().BeFalse();
     }
 
@@ -49,7 +49,7 @@ public class ServiceGetTrackerTest
             0
         );
 
-        IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
+        IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTrackerAsync(getTrackerInput);
         result.IsFailed.Should().BeTrue();
         result.Errors.Should().Contain(e =>
             ((IEnumerable<string>)e.Metadata[ValidationError.MESSAGES_METADATA_KEY])
@@ -70,7 +70,7 @@ public class ServiceGetTrackerTest
             0
         );
 
-        IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
+        IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTrackerAsync(getTrackerInput);
         result.IsFailed.Should().BeTrue();
         result.Errors.Should().Contain(e =>
             ((IEnumerable<string>)e.Metadata[ValidationError.MESSAGES_METADATA_KEY])
@@ -93,7 +93,7 @@ public class ServiceGetTrackerTest
             0
         );
 
-        IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
+        IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTrackerAsync(getTrackerInput);
         result.IsFailed.Should().BeTrue();
         var expectedMessage = ErrorMessages.DATE_OUT_OF_RANGE.Replace("{PropertyName}", "Start Date");
         result.Errors.Should().Contain(e =>
@@ -115,7 +115,7 @@ public class ServiceGetTrackerTest
             0
         );
 
-        IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
+        IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTrackerAsync(getTrackerInput);
         result.IsFailed.Should().BeTrue();
         result.Errors.Should().Contain(e =>
             ((IEnumerable<string>)e.Metadata[ValidationError.MESSAGES_METADATA_KEY])
@@ -136,7 +136,7 @@ public class ServiceGetTrackerTest
             0
         );
 
-        IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
+        IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTrackerAsync(getTrackerInput);
         result.IsFailed.Should().BeTrue();
         
         var expectedMessage = ErrorMessages.EMPTY_STRING_FILTER_ERROR.Replace("{PropertyName}", "Id Tms");
@@ -159,7 +159,7 @@ public class ServiceGetTrackerTest
             -1
         );
 
-        IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
+        IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTrackerAsync(getTrackerInput);
         result.IsFailed.Should().BeTrue();
         result.Errors.Should().Contain(e =>
             ((IEnumerable<string>)e.Metadata[ValidationError.MESSAGES_METADATA_KEY])
@@ -180,7 +180,7 @@ public class ServiceGetTrackerTest
             1
         );
 
-        IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
+        IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTrackerAsync(getTrackerInput);
         result.IsFailed.Should().BeTrue();
         result.Errors.Should().Contain(e =>
             ((IEnumerable<string>)e.Metadata[ValidationError.MESSAGES_METADATA_KEY])
