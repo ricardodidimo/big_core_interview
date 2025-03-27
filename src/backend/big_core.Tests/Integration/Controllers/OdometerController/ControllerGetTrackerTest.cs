@@ -27,7 +27,7 @@ public class OdometerControllerTests(WebApplicationFactory<Program> factory) : I
         HttpResponseMessage response = await _client.GetAsync($"/api/odometer/tracker?startDate={filter.StartDate:O}&endDate={filter.EndDate:O}&page={filter.Page}&rows={filter.Rows}");
         response.StatusCode.Should().Be(HttpStatusCode.OK);
              
-        var content = await response.Content.ReadFromJsonAsync<GetOdometerTrackListDTO>();
+        var content = await response.Content.ReadFromJsonAsync<GetOdometerTrackerListDTO>();
         content.Should().NotBeNull();
         content!.Data.Should().NotBeEmpty();
     }

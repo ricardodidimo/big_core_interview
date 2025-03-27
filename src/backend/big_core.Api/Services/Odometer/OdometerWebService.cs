@@ -12,23 +12,23 @@ public class OdometerWebService(IOdometerRepository odometerRepository, IValidat
     private readonly IOdometerRepository _odometerRepository = odometerRepository;
     private readonly IValidator<GetOdometerTrackerListFilterDTO> _validator = validator;
 
-    public async Task<IResult<GetOdometerTrackListDTO>> GetTracker(GetOdometerTrackerListFilterDTO filter)
+    public async Task<IResult<GetOdometerTrackerListDTO>> GetTrackerAsync(GetOdometerTrackerListFilterDTO filter)
     {
         var validationResult = _validator.Validate(filter);
         if (!validationResult.IsValid)
         {
             var errors = ValidationError.CreateErrorsList(validationResult.Errors);
-            return Result.Fail<GetOdometerTrackListDTO>(errors);
+            return Result.Fail<GetOdometerTrackerListDTO>(errors);
         }
 
-        var result = await _odometerRepository.GetTracker(filter);
+        var result = await _odometerRepository.GetTrackerAsync(filter);
         if (result.IsFailed)
         {
-            return Result.Fail<GetOdometerTrackListDTO>(result.Errors);
+            return Result.Fail<GetOdometerTrackerListDTO>(result.Errors);
         }
 
-        GetOdometerTrackListResultDTO resultDTO = result.Value;
-        GetOdometerTrackListDTO mappedData = OdometerMapper.MapToSummary(resultDTO);
+        GetOdometerTrackerListResultDTO resultDTO = result.Value;
+        GetOdometerTrackerListDTO mappedData = OdometerMapper.MapToSummary(resultDTO);
         return Result.Ok(mappedData);
     }
 }

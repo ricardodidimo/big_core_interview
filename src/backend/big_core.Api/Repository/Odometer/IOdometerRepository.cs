@@ -5,5 +5,5 @@ namespace big_core.Api.Repository.Odometer;
 
 public interface IOdometerRepository
 {
-    public Task<IResult<GetOdometerTrackListResultDTO>> GetTracker(GetOdometerTrackerListFilterDTO filterDTO);
+    public Task<IResult<GetOdometerTrackerListResultDTO>> GetTrackerAsync(GetOdometerTrackerListFilterDTO filterDTO);
 }

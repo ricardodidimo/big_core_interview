@@ -1,6 +1,6 @@
 namespace big_core.Api.Models.DTO;
 
-public record GetOdometerTrackListDTO(
+public record GetOdometerTrackerListDTO(
     List<OdometerSummaryDTO> Data,
     int TotalItems,
     int NumberOfRowPage,

@@ -21,13 +21,24 @@ public class OdometerController(IOdometerService odometerService) : ControllerBa
     /// <response code="200">Retorna a lista de rastreamento do odômetro.</response>
     /// <response code="400">Se os filtros forem inválidos.</response>
     /// <response code="500">Erro interno do servidor.</response>
+    /// <remarks>
+    /// Sample request:
+    ///
+    /// GET /api/odometer/tracker?StartDate=2025-03-20T20:01:19.869Z&amp;EndDate=2025-03-25T20:01:19.869Z&amp;Rows=10&amp;page=0   
+    /// {
+    ///     StartDate: 2025-03-20T20:01:19.869Z
+    ///      EndDate: 2025-03-25T20:01:19.869Z
+    ///      Rows: 10
+    ///      page: 0 
+    /// }
+    /// </remarks>
     [HttpGet("tracker")]
-    [ProducesResponseType(typeof(GetOdometerTrackListDTO), 200)]
-    [ProducesResponseType(typeof(string), 400)]
+    [ProducesResponseType(typeof(GetOdometerTrackerListDTO), 200)]
+    [ProducesResponseType(typeof(List<FluentResults.IError>), 400)]
     [ProducesResponseType(typeof(string), 500)]
     public async Task<IActionResult> GetOdometerTracker([FromQuery] GetOdometerTrackerListFilterDTO filter)
     {
-        var result = await _odometerService.GetTracker(filter);
+        var result = await _odometerService.GetTrackerAsync(filter);
 
         if (result.IsFailed)
             return BadRequest(result.Errors);
