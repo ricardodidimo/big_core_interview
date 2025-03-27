@@ -1,6 +1,6 @@
 using big_core.Api.Models.DTO;
 using big_core.Api.Repository.Odometer;
-using big_core.Api.Services;
+using big_core.Api.Services.Odometer;
 using big_core.Api.Validators;
 using big_core.Common;
 using FluentValidation;

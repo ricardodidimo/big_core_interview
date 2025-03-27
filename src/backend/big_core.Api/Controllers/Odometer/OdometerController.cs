@@ -1,7 +1,7 @@
 namespace big_core.Api.Controllers.Odometer;
 
 using big_core.Api.Models.DTO;
-using big_core.Api.Services;
+using big_core.Api.Services.Odometer;
 using Microsoft.AspNetCore.Mvc;
 
 /// <summary>
