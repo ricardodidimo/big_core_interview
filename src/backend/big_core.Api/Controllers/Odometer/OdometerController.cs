@@ -22,7 +22,7 @@ public class OdometerController(IOdometerService odometerService) : ControllerBa
     /// <response code="400">Se os filtros forem inválidos.</response>
     /// <response code="500">Erro interno do servidor.</response>
     [HttpGet("tracker")]
-    [ProducesResponseType(typeof(GetOdometerTrackListDTO), 200)]
+    [ProducesResponseType(typeof(GetOdometerTrackerListDTO), 200)]
     [ProducesResponseType(typeof(string), 400)]
     [ProducesResponseType(typeof(string), 500)]
     public async Task<IActionResult> GetOdometerTracker([FromQuery] GetOdometerTrackerListFilterDTO filter)

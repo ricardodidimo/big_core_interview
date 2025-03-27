@@ -2,9 +2,9 @@ namespace big_core.Api.Models.DTO.Mappers;
 
 public static class OdometerMapper
 {
-    public static GetOdometerTrackListDTO MapToSummary(GetOdometerTrackListResultDTO resultDto)
+    public static GetOdometerTrackerListDTO MapToSummary(GetOdometerTrackerListResultDTO resultDto)
     {
-        return new GetOdometerTrackListDTO(
+        return new GetOdometerTrackerListDTO(
             Data: resultDto.Data.Select(MapToSummary).ToList(),
             TotalItems: resultDto.TotalItems,
             NumberOfRowPage: resultDto.NumberOfRowPage,

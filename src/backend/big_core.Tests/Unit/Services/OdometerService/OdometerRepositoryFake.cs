@@ -49,7 +49,7 @@ public class FakeOdometerRepository : IOdometerRepository
         ];
     }
 
-    public async Task<IResult<GetOdometerTrackListResultDTO>> GetTrackerAsync(GetOdometerTrackerListFilterDTO filter)
+    public async Task<IResult<GetOdometerTrackerListResultDTO>> GetTrackerAsync(GetOdometerTrackerListFilterDTO filter)
     {
         await Task.Delay(10);
         var filteredData = _fakeData
@@ -57,7 +57,7 @@ public class FakeOdometerRepository : IOdometerRepository
             .Take(filter.Rows)
             .ToList();
 
-        var result = new GetOdometerTrackListResultDTO
+        var result = new GetOdometerTrackerListResultDTO
         (
             filteredData,
             _fakeData.Count,

@@ -34,11 +34,11 @@ public class OdometerHttpRepository(HttpClient httpClient, ICacheService cacheSe
         return appendBuilder.ToString();
     }
 
-    public async Task<IResult<GetOdometerTrackListResultDTO>> GetTrackerAsync(GetOdometerTrackerListFilterDTO filter)
+    public async Task<IResult<GetOdometerTrackerListResultDTO>> GetTrackerAsync(GetOdometerTrackerListFilterDTO filter)
     {
         var url = FormatGetTrackerUrl(filter);
 
-        var cachedProduct = await _cacheService.GetAsync<GetOdometerTrackListResultDTO>(url);
+        var cachedProduct = await _cacheService.GetAsync<GetOdometerTrackerListResultDTO>(url);
         if (cachedProduct != null)
         {
             return Result.Ok(cachedProduct);
@@ -47,24 +47,24 @@ public class OdometerHttpRepository(HttpClient httpClient, ICacheService cacheSe
         HttpResponseMessage response = await _httpClient.GetAsync(url);
         if (!response.IsSuccessStatusCode)
         {
-            return Result.Fail<GetOdometerTrackListResultDTO>(ErrorMessages.API_REQUEST_FAILED_ERROR);
+            return Result.Fail<GetOdometerTrackerListResultDTO>(ErrorMessages.API_REQUEST_FAILED_ERROR);
         }
 
         var content = await response.Content.ReadAsStringAsync();
-        GetOdometerTrackListResultDTO? data;
+        GetOdometerTrackerListResultDTO? data;
         try
         {
-            data = JsonSerializer.Deserialize<GetOdometerTrackListResultDTO>(content, JsonSettings.DefaultOptions);
+            data = JsonSerializer.Deserialize<GetOdometerTrackerListResultDTO>(content, JsonSettings.DefaultOptions);
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Deserialization error: {ex.Message}");
-            return Result.Fail<GetOdometerTrackListResultDTO>(ErrorMessages.UNEXPECTED_API_RESPONSE_ERROR);
+            return Result.Fail<GetOdometerTrackerListResultDTO>(ErrorMessages.UNEXPECTED_API_RESPONSE_ERROR);
         }
 
         if (data is null)
         {
-            return Result.Fail<GetOdometerTrackListResultDTO>(ErrorMessages.UNEXPECTED_API_RESPONSE_ERROR);
+            return Result.Fail<GetOdometerTrackerListResultDTO>(ErrorMessages.UNEXPECTED_API_RESPONSE_ERROR);
         }
 
         await _cacheService.SetAsync(url, data, TimeSpan.FromMinutes(10));
