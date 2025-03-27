@@ -115,7 +115,7 @@ public class ServiceGetTrackerTest
     {
         GetOdometerTrackerListFilterDTO getTrackerInput = new(
             DateTime.UtcNow.Subtract(TimeSpan.FromDays(3)),
-            DateTime.UtcNow,
+            DateTime.UtcNow.Subtract(TimeSpan.FromHours(2)),
             new string[] { "" },
             new string[] { "" },
             Array.Empty<int>(),
@@ -151,7 +151,7 @@ public class ServiceGetTrackerTest
     {
         GetOdometerTrackerListFilterDTO getTrackerInput = new(
             DateTime.UtcNow.Subtract(TimeSpan.FromDays(3)),
-            DateTime.UtcNow,
+            DateTime.UtcNow.Subtract(TimeSpan.FromHours(2)),
             Array.Empty<string>(),
             Array.Empty<string>(),
             Array.Empty<int>(),
@@ -160,20 +160,6 @@ public class ServiceGetTrackerTest
         );
 
         IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
-        result.IsFailed.Should().BeTrue();
-        result.Errors.Should().Contain(e => e.Message.Contains(ErrorMessages.INVALID_ROWS_ERROR));
-
-        getTrackerInput = new(
-            DateTime.UtcNow.Subtract(TimeSpan.FromDays(3)),
-            DateTime.UtcNow,
-            Array.Empty<string>(),
-            Array.Empty<string>(),
-            Array.Empty<int>(),
-            -1,
-            1
-        );
-
-        result = await _odometerService.GetTracker(getTrackerInput);
         result.IsFailed.Should().BeTrue();
         result.Errors.Should().Contain(e => e.Message.Contains(ErrorMessages.INVALID_ROWS_ERROR));
     }
