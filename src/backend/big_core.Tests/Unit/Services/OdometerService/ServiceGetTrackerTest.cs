@@ -51,7 +51,10 @@ public class ServiceGetTrackerTest
 
         IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
         result.IsFailed.Should().BeTrue();
-        result.Errors.Should().Contain(e => e.Message.Contains(ErrorMessages.FUTURE_DATE_ERROR));
+        result.Errors.Should().Contain(e =>
+            ((IEnumerable<string>)e.Metadata[ValidationError.MESSAGES_METADATA_KEY])
+            .Contains(ErrorMessages.FUTURE_DATE_ERROR)
+        );
     }
 
     [Fact]
@@ -69,7 +72,10 @@ public class ServiceGetTrackerTest
 
         IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
         result.IsFailed.Should().BeTrue();
-        result.Errors.Should().Contain(e => e.Message.Contains(ErrorMessages.BIGGER_START_DATE_ERROR));
+        result.Errors.Should().Contain(e =>
+            ((IEnumerable<string>)e.Metadata[ValidationError.MESSAGES_METADATA_KEY])
+            .Contains(ErrorMessages.BIGGER_START_DATE_ERROR)
+        );
     }
 
     [Fact]
@@ -89,7 +95,11 @@ public class ServiceGetTrackerTest
 
         IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
         result.IsFailed.Should().BeTrue();
-        result.Errors.Should().Contain(e => e.Message.Contains(ErrorMessages.DATE_OUT_OF_RANGE));
+        var expectedMessage = ErrorMessages.DATE_OUT_OF_RANGE.Replace("{PropertyName}", "Start Date");
+        result.Errors.Should().Contain(e =>
+            ((IEnumerable<string>)e.Metadata[ValidationError.MESSAGES_METADATA_KEY])
+            .Contains(expectedMessage)
+        );
     }
 
     [Fact]
@@ -107,7 +117,10 @@ public class ServiceGetTrackerTest
 
         IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
         result.IsFailed.Should().BeTrue();
-        result.Errors.Should().Contain(e => e.Message.Contains(ErrorMessages.LOWER_END_DATE_ERROR));
+        result.Errors.Should().Contain(e =>
+            ((IEnumerable<string>)e.Metadata[ValidationError.MESSAGES_METADATA_KEY])
+            .Contains(ErrorMessages.LOWER_END_DATE_ERROR)
+        );
     }
 
     [Fact]
@@ -125,7 +138,12 @@ public class ServiceGetTrackerTest
 
         IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
         result.IsFailed.Should().BeTrue();
-        result.Errors.Should().Contain(e => e.Message.Contains(ErrorMessages.EMPTY_STRING_FILTER_ERROR));
+        
+        var expectedMessage = ErrorMessages.EMPTY_STRING_FILTER_ERROR.Replace("{PropertyName}", "Id Tms");
+        result.Errors.Should().Contain(e =>
+            ((IEnumerable<string>)e.Metadata[ValidationError.MESSAGES_METADATA_KEY])
+            .Contains(expectedMessage)
+        );
     }
 
     [Fact]
@@ -143,7 +161,10 @@ public class ServiceGetTrackerTest
 
         IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
         result.IsFailed.Should().BeTrue();
-        result.Errors.Should().Contain(e => e.Message.Contains(ErrorMessages.INVALID_PAGE_ACTIVE));
+        result.Errors.Should().Contain(e =>
+            ((IEnumerable<string>)e.Metadata[ValidationError.MESSAGES_METADATA_KEY])
+            .Contains(ErrorMessages.INVALID_PAGE_ACTIVE)
+        );
     }
 
     [Fact]
@@ -161,6 +182,9 @@ public class ServiceGetTrackerTest
 
         IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
         result.IsFailed.Should().BeTrue();
-        result.Errors.Should().Contain(e => e.Message.Contains(ErrorMessages.INVALID_ROWS_ERROR));
+        result.Errors.Should().Contain(e =>
+            ((IEnumerable<string>)e.Metadata[ValidationError.MESSAGES_METADATA_KEY])
+            .Contains(ErrorMessages.INVALID_ROWS_ERROR)
+        );
     }
 }
