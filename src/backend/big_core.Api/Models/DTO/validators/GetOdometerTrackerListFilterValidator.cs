@@ -31,11 +31,11 @@ namespace big_core.Api.Validators
 
             RuleForEach(x => x.IdTms)
                 .Must(value => !string.IsNullOrWhiteSpace(value))
-                .NotEmpty().WithMessage(ErrorMessages.EMPTY_STRING_FILTER_ERROR);
+                .WithMessage(ErrorMessages.EMPTY_STRING_FILTER_ERROR);
 
             RuleForEach(x => x.LicensePlates)
                 .Must(value => !string.IsNullOrWhiteSpace(value))
-                .NotEmpty().WithMessage(ErrorMessages.EMPTY_STRING_FILTER_ERROR);
+                .WithMessage(ErrorMessages.EMPTY_STRING_FILTER_ERROR);
         }
     }
 }
