@@ -34,7 +34,7 @@ public class OdometerHttpRepository(HttpClient httpClient, ICacheService cacheSe
         return appendBuilder.ToString();
     }
 
-    public async Task<IResult<GetOdometerTrackListResultDTO>> GetTracker(GetOdometerTrackerListFilterDTO filter)
+    public async Task<IResult<GetOdometerTrackListResultDTO>> GetTrackerAsync(GetOdometerTrackerListFilterDTO filter)
     {
         var url = FormatGetTrackerUrl(filter);
 

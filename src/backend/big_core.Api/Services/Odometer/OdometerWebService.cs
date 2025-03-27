@@ -21,7 +21,7 @@ public class OdometerWebService(IOdometerRepository odometerRepository, IValidat
             return Result.Fail<GetOdometerTrackListDTO>(errors);
         }
 
-        var result = await _odometerRepository.GetTracker(filter);
+        var result = await _odometerRepository.GetTrackerAsync(filter);
         if (result.IsFailed)
         {
             return Result.Fail<GetOdometerTrackListDTO>(result.Errors);

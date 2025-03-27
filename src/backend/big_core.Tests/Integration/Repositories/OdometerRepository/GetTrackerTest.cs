@@ -41,7 +41,7 @@ public class GetTrackerTest(OdometerRepositoryFixture fixture)
             1
         );
 
-        IResult<GetOdometerTrackListResultDTO> result = await ExecuteWithRetry(() => _odometerRepository.GetTracker(getTrackerInput));
+        IResult<GetOdometerTrackListResultDTO> result = await ExecuteWithRetry(() => _odometerRepository.GetTrackerAsync(getTrackerInput));
         result.IsFailed.Should().BeFalse();
     }
 
@@ -58,7 +58,7 @@ public class GetTrackerTest(OdometerRepositoryFixture fixture)
             1
         );
 
-        IResult<GetOdometerTrackListResultDTO> result = await ExecuteWithRetry(() => _odometerRepository.GetTracker(getTrackerInput));
+        IResult<GetOdometerTrackListResultDTO> result = await ExecuteWithRetry(() => _odometerRepository.GetTrackerAsync(getTrackerInput));
         result.IsFailed.Should().BeFalse();
         result.Value.Should().NotBeNull();
         result.Value.Data.Count.Should().Be(getTrackerInput.Rows);
@@ -77,7 +77,7 @@ public class GetTrackerTest(OdometerRepositoryFixture fixture)
             2
         );
 
-        IResult<GetOdometerTrackListResultDTO> result = await ExecuteWithRetry(() => _odometerRepository.GetTracker(getTrackerInput));
+        IResult<GetOdometerTrackListResultDTO> result = await ExecuteWithRetry(() => _odometerRepository.GetTrackerAsync(getTrackerInput));
         result.IsFailed.Should().BeFalse();
         result.Value.Should().NotBeNull();
         result.Value.PageActive.Should().Be(2);
