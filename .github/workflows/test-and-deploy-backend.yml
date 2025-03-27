@@ -1,0 +1,89 @@
+name: Test and Deploy Backend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    environment: azure_deployment
+    env:
+      API_BASE_URL: ${{ vars.API_BASE_URL }}
+      API_AUTH_HEADER_TOKEN : ${{ secrets.API_AUTH_HEADER_TOKEN}}
+      REDIS_CONNECTION : ${{ secrets.REDIS_CONNECTION}}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup .NET environment
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "8.0.403"
+      
+      - name: Debug - Check files
+        run: ls -R
+
+      - name: Restore dependencies
+        run: dotnet restore
+        working-directory: src/backend/big_core.Tests
+
+      - name: Build with dotnet
+        run: dotnet build --configuration Release
+        working-directory: src/backend/big_core.Tests
+
+      - name: Run tests
+        run: dotnet test
+        working-directory: src/backend/big_core.Tests
+
+  build-image-and-deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    environment: azure_deployment
+    env:
+      ACR_NAME: ${{ vars.ACR_NAME }}
+      IMAGE_NAME: ${{ vars.IMAGE_NAME }}
+      APP_SERVICE_NAME: ${{ vars.APP_SERVICE_NAME }}
+      APP_RESOURCE_GROUP: ${{ vars.APP_RESOURCE_GROUP }}
+      APP_NAME: ${{ vars.APP_NAME }}
+      API_BASE_URL: ${{ vars.API_BASE_URL }}
+      API_AUTH_HEADER_TOKEN : ${{ secrets.API_AUTH_HEADER_TOKEN}}
+      REDIS_CONNECTION : ${{ secrets.REDIS_CONNECTION}}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Login to Azure Container Registry
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ env.ACR_NAME }}.azurecr.io
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t ${{env.ACR_NAME}}.azurecr.io/${{env.IMAGE_NAME}}:${{ github.sha }} -f src/backend/Dockerfile src/backend/
+          docker push ${{env.ACR_NAME}}.azurecr.io/${{env.IMAGE_NAME}}:${{ github.sha }}
+
+      - name: Deploy to Azure App Service
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{env.APP_NAME}}
+          slot-name: production
+          images: ${{env.ACR_NAME}}.azurecr.io/${{env.IMAGE_NAME}}:${{ github.sha }}
+
+      - name: Update Azure App Service to use latest image
+        run: |
+          az webapp config container set --name ${{env.APP_NAME}} \
+            --resource-group ${{env.APP_RESOURCE_GROUP}} \
+            --container-image-name ${{env.ACR_NAME}}.azurecr.io/${{env.IMAGE_NAME}}:${{ github.sha }}
+
+      - name: Restart Azure App Service
+        run: |
+          sleep 10
+          az webapp restart --name ${{env.APP_NAME}} --resource-group ${{env.APP_RESOURCE_GROUP}}
