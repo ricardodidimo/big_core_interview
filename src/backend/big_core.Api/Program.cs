@@ -36,6 +36,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
+    options.DocumentTitle = "Big Core demo BFF API";
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "Big Core demo BFF API");
     options.RoutePrefix = string.Empty;
 });

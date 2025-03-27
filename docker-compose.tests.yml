@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  redis-tests:
+    image: redis:latest
+    container_name: redis-test-cache
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_data:/test_data
+  tests:
+    container_name: big-core-tests
+    build:
+      context: .
+      dockerfile: src/backend/Dockerfile.test
+    depends_on:
+      - redis-tests
+    env_file:
+      - ./src/backend/.env
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - REDIS_CONNECTION=redis-tests:6379
+
+volumes:
+  redis_data:
+    driver: local 

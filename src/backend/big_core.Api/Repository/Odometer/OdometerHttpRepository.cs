@@ -4,11 +4,13 @@ using System.Text;
 using System.Text.Json;
 using big_core.Api.Helpers;
 using big_core.Api.Models.DTO;
+using big_core.Api.Services.Cache;
 using FluentResults;
 
-public class OdometerHttpRepository(HttpClient httpClient) : IOdometerRepository
+public class OdometerHttpRepository(HttpClient httpClient, ICacheService cacheService) : IOdometerRepository
 {
     private readonly HttpClient _httpClient = httpClient;
+    private readonly ICacheService _cacheService = cacheService;
     private readonly string ODOMETER_RESOURCE_PATH = "Vehicles/TrackerOdometer";
 
     private string AppendQueryValues<T>(IEnumerable<T> values, string queryPrefix)
@@ -35,6 +37,13 @@ public class OdometerHttpRepository(HttpClient httpClient) : IOdometerRepository
     public async Task<IResult<GetOdometerTrackListResultDTO>> GetTracker(GetOdometerTrackerListFilterDTO filter)
     {
         var url = FormatGetTrackerUrl(filter);
+
+        var cachedProduct = await _cacheService.GetAsync<GetOdometerTrackListResultDTO>(url);
+        if (cachedProduct != null)
+        {
+            return Result.Ok(cachedProduct);
+        }
+
         HttpResponseMessage response = await _httpClient.GetAsync(url);
         if (!response.IsSuccessStatusCode)
         {
@@ -57,6 +66,8 @@ public class OdometerHttpRepository(HttpClient httpClient) : IOdometerRepository
         {
             return Result.Fail<GetOdometerTrackListResultDTO>(ErrorMessages.UNEXPECTED_API_RESPONSE_ERROR);
         }
+
+        await _cacheService.SetAsync(url, data, TimeSpan.FromMinutes(10));
 
         return Result.Ok(data);
     }

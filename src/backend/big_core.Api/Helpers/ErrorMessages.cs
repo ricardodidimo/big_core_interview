@@ -2,6 +2,7 @@ namespace big_core.Api.Helpers;
 
 public static class ErrorMessages
 {
+    public const string REQUIRED_ENVIRONMENT_VARIABLE_MISSING = "REQUIRED ENVIRONMENT VALUE WAS NOT FOUND";
     public const string REQUIRED_START_DATE = "Start date is required";
     public const string REQUIRED_END_DATE = "End date is required";
     public const string API_REQUEST_FAILED_ERROR = "API request failed";
