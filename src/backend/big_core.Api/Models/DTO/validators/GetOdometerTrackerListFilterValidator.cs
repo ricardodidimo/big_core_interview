@@ -30,13 +30,12 @@ namespace big_core.Api.Validators
                 .GreaterThan(0).WithMessage(ErrorMessages.INVALID_ROWS_ERROR);
 
             RuleForEach(x => x.IdTms)
-                .NotEmpty().WithMessage(ErrorMessages.EMPTY_STRING_FILTER_ERROR);
+                .Must(value => !string.IsNullOrWhiteSpace(value))
+                .WithMessage(ErrorMessages.EMPTY_STRING_FILTER_ERROR);
 
             RuleForEach(x => x.LicensePlates)
-                .NotEmpty().WithMessage(ErrorMessages.EMPTY_STRING_FILTER_ERROR);
-
-            RuleForEach(x => x.DivisionIds)
-                .NotEmpty().WithMessage(ErrorMessages.EMPTY_STRING_FILTER_ERROR);
+                .Must(value => !string.IsNullOrWhiteSpace(value))
+                .WithMessage(ErrorMessages.EMPTY_STRING_FILTER_ERROR);
         }
     }
 }

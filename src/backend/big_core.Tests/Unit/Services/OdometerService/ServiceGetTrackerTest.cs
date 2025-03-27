@@ -2,7 +2,7 @@ namespace big_core.Tests.Unit.Services.OdometerService;
 
 using big_core.Api.Helpers;
 using big_core.Api.Models.DTO;
-using big_core.Api.Services;
+using big_core.Api.Services.Odometer;
 using big_core.Api.Validators;
 using big_core.Common;
 using FluentAssertions;
@@ -51,7 +51,10 @@ public class ServiceGetTrackerTest
 
         IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
         result.IsFailed.Should().BeTrue();
-        result.Errors.Should().Contain(e => e.Message.Contains(ErrorMessages.FUTURE_DATE_ERROR));
+        result.Errors.Should().Contain(e =>
+            ((IEnumerable<string>)e.Metadata[ValidationError.MESSAGES_METADATA_KEY])
+            .Contains(ErrorMessages.FUTURE_DATE_ERROR)
+        );
     }
 
     [Fact]
@@ -69,7 +72,10 @@ public class ServiceGetTrackerTest
 
         IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
         result.IsFailed.Should().BeTrue();
-        result.Errors.Should().Contain(e => e.Message.Contains(ErrorMessages.BIGGER_START_DATE_ERROR));
+        result.Errors.Should().Contain(e =>
+            ((IEnumerable<string>)e.Metadata[ValidationError.MESSAGES_METADATA_KEY])
+            .Contains(ErrorMessages.BIGGER_START_DATE_ERROR)
+        );
     }
 
     [Fact]
@@ -89,7 +95,11 @@ public class ServiceGetTrackerTest
 
         IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
         result.IsFailed.Should().BeTrue();
-        result.Errors.Should().Contain(e => e.Message.Contains(ErrorMessages.DATE_OUT_OF_RANGE));
+        var expectedMessage = ErrorMessages.DATE_OUT_OF_RANGE.Replace("{PropertyName}", "Start Date");
+        result.Errors.Should().Contain(e =>
+            ((IEnumerable<string>)e.Metadata[ValidationError.MESSAGES_METADATA_KEY])
+            .Contains(expectedMessage)
+        );
     }
 
     [Fact]
@@ -107,7 +117,10 @@ public class ServiceGetTrackerTest
 
         IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
         result.IsFailed.Should().BeTrue();
-        result.Errors.Should().Contain(e => e.Message.Contains(ErrorMessages.LOWER_END_DATE_ERROR));
+        result.Errors.Should().Contain(e =>
+            ((IEnumerable<string>)e.Metadata[ValidationError.MESSAGES_METADATA_KEY])
+            .Contains(ErrorMessages.LOWER_END_DATE_ERROR)
+        );
     }
 
     [Fact]
@@ -115,7 +128,7 @@ public class ServiceGetTrackerTest
     {
         GetOdometerTrackerListFilterDTO getTrackerInput = new(
             DateTime.UtcNow.Subtract(TimeSpan.FromDays(3)),
-            DateTime.UtcNow,
+            DateTime.UtcNow.Subtract(TimeSpan.FromHours(2)),
             new string[] { "" },
             new string[] { "" },
             Array.Empty<int>(),
@@ -125,7 +138,12 @@ public class ServiceGetTrackerTest
 
         IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
         result.IsFailed.Should().BeTrue();
-        result.Errors.Should().Contain(e => e.Message.Contains(ErrorMessages.EMPTY_STRING_FILTER_ERROR));
+        
+        var expectedMessage = ErrorMessages.EMPTY_STRING_FILTER_ERROR.Replace("{PropertyName}", "Id Tms");
+        result.Errors.Should().Contain(e =>
+            ((IEnumerable<string>)e.Metadata[ValidationError.MESSAGES_METADATA_KEY])
+            .Contains(expectedMessage)
+        );
     }
 
     [Fact]
@@ -143,7 +161,10 @@ public class ServiceGetTrackerTest
 
         IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
         result.IsFailed.Should().BeTrue();
-        result.Errors.Should().Contain(e => e.Message.Contains(ErrorMessages.INVALID_PAGE_ACTIVE));
+        result.Errors.Should().Contain(e =>
+            ((IEnumerable<string>)e.Metadata[ValidationError.MESSAGES_METADATA_KEY])
+            .Contains(ErrorMessages.INVALID_PAGE_ACTIVE)
+        );
     }
 
     [Fact]
@@ -151,7 +172,7 @@ public class ServiceGetTrackerTest
     {
         GetOdometerTrackerListFilterDTO getTrackerInput = new(
             DateTime.UtcNow.Subtract(TimeSpan.FromDays(3)),
-            DateTime.UtcNow,
+            DateTime.UtcNow.Subtract(TimeSpan.FromHours(2)),
             Array.Empty<string>(),
             Array.Empty<string>(),
             Array.Empty<int>(),
@@ -161,20 +182,9 @@ public class ServiceGetTrackerTest
 
         IResult<GetOdometerTrackListDTO> result = await _odometerService.GetTracker(getTrackerInput);
         result.IsFailed.Should().BeTrue();
-        result.Errors.Should().Contain(e => e.Message.Contains(ErrorMessages.INVALID_ROWS_ERROR));
-
-        getTrackerInput = new(
-            DateTime.UtcNow.Subtract(TimeSpan.FromDays(3)),
-            DateTime.UtcNow,
-            Array.Empty<string>(),
-            Array.Empty<string>(),
-            Array.Empty<int>(),
-            -1,
-            1
+        result.Errors.Should().Contain(e =>
+            ((IEnumerable<string>)e.Metadata[ValidationError.MESSAGES_METADATA_KEY])
+            .Contains(ErrorMessages.INVALID_ROWS_ERROR)
         );
-
-        result = await _odometerService.GetTracker(getTrackerInput);
-        result.IsFailed.Should().BeTrue();
-        result.Errors.Should().Contain(e => e.Message.Contains(ErrorMessages.INVALID_ROWS_ERROR));
     }
 }

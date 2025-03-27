@@ -1,6 +1,9 @@
+using big_core.Api.Models.DTO;
 using big_core.Api.Repository.Odometer;
-using big_core.Api.Services;
+using big_core.Api.Services.Odometer;
+using big_core.Api.Validators;
 using big_core.Common;
+using FluentValidation;
 
 namespace big_core.Api.Helpers
 {
@@ -27,12 +30,12 @@ namespace big_core.Api.Helpers
         public static IServiceCollection AddApplicationRepositories(this IServiceCollection services)
         {
             services.RegisterHttpFactoryInstance();
-            services.AddScoped<IOdometerRepository, OdometerHttpRepository>();
             return services;
         }
 
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            services.AddScoped<IValidator<GetOdometerTrackerListFilterDTO>, GetOdometerTrackerListFilterValidator>();
             services.AddScoped<IOdometerService, OdometerWebService>();
             return services;
         }
