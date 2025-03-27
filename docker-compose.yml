@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  redis:
+    image: redis:latest
+    container_name: redis-cache
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data 
+  app:
+    container_name: big_core_BFF
+    build: 
+      context: ./src/backend/
+      dockerfile: Dockerfile
+    env_file:
+      - ./src/backend/.env
+    ports:
+      - "80:80"
+    depends_on:
+      - redis
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Release
+      - REDIS_CONNECTION=redis:6379
+
+volumes:
+  redis_data:
+    driver: local 
