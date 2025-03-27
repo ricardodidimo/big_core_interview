@@ -6,7 +6,7 @@ services:
     ports:
       - "6380:6379"
     volumes:
-      - redis_data:/test_data 
+      - redis_data:/test_data
   tests:
     container_name: big-core-tests
     build:
