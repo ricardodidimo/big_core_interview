@@ -53,9 +53,6 @@ public class FakeOdometerRepository : IOdometerRepository
     {
         await Task.Delay(10);
         var filteredData = _fakeData
-            .Where(x => filter.DivisionIds.Length is 0 || filter.DivisionIds.Contains(x.DivisionId))
-            .Where(x => filter.LicensePlates.Length is 0 || filter.LicensePlates.Contains(x.LicensePlate))
-            .Where(x => filter.IdTms.Length is 0 || filter.IdTms.Contains(x.VehicleIdTms))
             .Skip(filter.Page * filter.Rows)
             .Take(filter.Rows)
             .ToList();
