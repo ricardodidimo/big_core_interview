@@ -2,6 +2,7 @@ namespace big_core.Tests.Integration.Controllers;
 
 using System.Net;
 using System.Net.Http.Json;
+using big_core.Api.Helpers;
 using big_core.Api.Models.DTO;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -25,7 +26,7 @@ public class OdometerControllerTests(WebApplicationFactory<Program> factory) : I
 
         HttpResponseMessage response = await _client.GetAsync($"/api/odometer/tracker?startDate={filter.StartDate:O}&endDate={filter.EndDate:O}&page={filter.Page}&rows={filter.Rows}");
         response.StatusCode.Should().Be(HttpStatusCode.OK);
-
+             
         var content = await response.Content.ReadFromJsonAsync<GetOdometerTrackListDTO>();
         content.Should().NotBeNull();
         content!.Data.Should().NotBeEmpty();
@@ -48,7 +49,7 @@ public class OdometerControllerTests(WebApplicationFactory<Program> factory) : I
 
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         string errorMessage = await response.Content.ReadAsStringAsync();
-        errorMessage.Should().Contain("start date cannot be in the future");
+        errorMessage.Should().Contain(ErrorMessages.FUTURE_DATE_ERROR);
     }
 }
 
