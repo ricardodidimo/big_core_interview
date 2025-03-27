@@ -9,18 +9,18 @@ public record GetOdometerTrackListDTO(
 );
 
 public record OdometerSummaryDTO(
-    int VehicleId,
-    string VehicleIdTms,
-    int OperationId,
-    string OperationName,
-    int DivisionId,
-    string DivisionName,
-    string LicensePlate,
+    int? VehicleId,
+    string? VehicleIdTms,
+    int? OperationId,
+    string? OperationName,
+    int? DivisionId,
+    string? DivisionName,
+    string? LicensePlate,
     double? OdometerKm,
-    int Speed,
-    bool Moving,
-    bool Ignition,
+    int? Speed,
+    bool? Moving,
+    bool? Ignition,
     int? DriverId,
     string? DriverName,
-    DateTime DateProcess
+    DateTime? DateProcess
 );
