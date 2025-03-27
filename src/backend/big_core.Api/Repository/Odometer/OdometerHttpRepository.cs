@@ -25,9 +25,9 @@ public class OdometerHttpRepository(HttpClient httpClient) : IOdometerRepository
     private string FormatGetTrackerUrl(GetOdometerTrackerListFilterDTO filter)
     {
         var appendBuilder = new StringBuilder($"{ODOMETER_RESOURCE_PATH}?StartDate={filter.StartDate:O}&EndDate={filter.EndDate:O}&Page={filter.Page}&Rows={filter.Rows}");
-        appendBuilder.Append(AppendQueryValues(filter.DivisionIds, "DivisionId"));
-        appendBuilder.Append(AppendQueryValues(filter.LicensePlates, "LicensePlate"));
-        appendBuilder.Append(AppendQueryValues(filter.IdTms, "IdTms"));
+        if (filter.DivisionIds is not null) appendBuilder.Append(AppendQueryValues(filter.DivisionIds, "DivisionId"));
+        if (filter.LicensePlates is not null) appendBuilder.Append(AppendQueryValues(filter.LicensePlates, "LicensePlate"));
+        if (filter.IdTms is not null) appendBuilder.Append(AppendQueryValues(filter.IdTms, "IdTms"));
 
         return appendBuilder.ToString();
     }
