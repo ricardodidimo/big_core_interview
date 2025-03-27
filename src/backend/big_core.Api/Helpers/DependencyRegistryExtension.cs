@@ -1,4 +1,5 @@
 using big_core.Api.Repository.Odometer;
+using big_core.Api.Services;
 using big_core.Common;
 
 namespace big_core.Api.Helpers
@@ -19,7 +20,7 @@ namespace big_core.Api.Helpers
                     "Basic", authHeaderToken
                 );
             });
-            
+
             return services;
         }
 
@@ -27,6 +28,12 @@ namespace big_core.Api.Helpers
         {
             services.RegisterHttpFactoryInstance();
             services.AddScoped<IOdometerRepository, OdometerHttpRepository>();
+            return services;
+        }
+
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+        {
+            services.AddScoped<IOdometerService, OdometerWebService>();
             return services;
         }
     }

@@ -31,7 +31,7 @@ public class GetTrackerTest(OdometerRepositoryFixture fixture)
     [Fact]
     public async Task GetTrackerList_OnSuccess_ShouldReturnOkAsExpected()
     {
-        GetOdemeterTrackerListFilterDTO getTrackerInput = new(
+        GetOdometerTrackerListFilterDTO getTrackerInput = new(
             DateTime.UtcNow.Subtract(TimeSpan.FromDays(3)),
             DateTime.UtcNow,
             Array.Empty<string>(),
@@ -48,7 +48,7 @@ public class GetTrackerTest(OdometerRepositoryFixture fixture)
     [Fact]
     public async Task GetTrackerList_OnCustomNumberOfRowsPerPageSetted_ShouldReturnsExpectedCount()
     {
-        GetOdemeterTrackerListFilterDTO getTrackerInput = new(
+        GetOdometerTrackerListFilterDTO getTrackerInput = new(
             DateTime.UtcNow.Subtract(TimeSpan.FromDays(3)),
             DateTime.UtcNow,
             Array.Empty<string>(),
@@ -67,7 +67,7 @@ public class GetTrackerTest(OdometerRepositoryFixture fixture)
     [Fact]
     public async Task GetTrackerList_OnCustomActivePageSetted_ShouldReturnsExpectedIndex()
     {
-        GetOdemeterTrackerListFilterDTO getTrackerInput = new(
+        GetOdometerTrackerListFilterDTO getTrackerInput = new(
             DateTime.UtcNow.Subtract(TimeSpan.FromDays(3)),
             DateTime.UtcNow,
             Array.Empty<string>(),

@@ -22,7 +22,7 @@ public class OdometerHttpRepository(HttpClient httpClient) : IOdometerRepository
         return queryBuilder.ToString();
     }
 
-    private string FormatGetTrackerUrl(GetOdemeterTrackerListFilterDTO filter)
+    private string FormatGetTrackerUrl(GetOdometerTrackerListFilterDTO filter)
     {
         var appendBuilder = new StringBuilder($"{ODOMETER_RESOURCE_PATH}?StartDate={filter.StartDate:O}&EndDate={filter.EndDate:O}&Page={filter.Page}&Rows={filter.Rows}");
         appendBuilder.Append(AppendQueryValues(filter.DivisionIds, "DivisionId"));
@@ -32,7 +32,7 @@ public class OdometerHttpRepository(HttpClient httpClient) : IOdometerRepository
         return appendBuilder.ToString();
     }
 
-    public async Task<IResult<GetOdometerTrackListResultDTO>> GetTracker(GetOdemeterTrackerListFilterDTO filter)
+    public async Task<IResult<GetOdometerTrackListResultDTO>> GetTracker(GetOdometerTrackerListFilterDTO filter)
     {
         var url = FormatGetTrackerUrl(filter);
         HttpResponseMessage response = await _httpClient.GetAsync(url);
