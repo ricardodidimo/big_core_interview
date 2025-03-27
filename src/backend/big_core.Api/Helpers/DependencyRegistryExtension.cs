@@ -1,5 +1,6 @@
 using big_core.Api.Models.DTO;
 using big_core.Api.Repository.Odometer;
+using big_core.Api.Services.Cache;
 using big_core.Api.Services.Odometer;
 using big_core.Api.Validators;
 using big_core.Common;
@@ -37,6 +38,9 @@ namespace big_core.Api.Helpers
         {
             services.AddScoped<IValidator<GetOdometerTrackerListFilterDTO>, GetOdometerTrackerListFilterValidator>();
             services.AddScoped<IOdometerService, OdometerWebService>();
+
+            services.RegisterRedisConnection();
+            services.AddScoped<ICacheService, RedisCacheService>();
             return services;
         }
     }
