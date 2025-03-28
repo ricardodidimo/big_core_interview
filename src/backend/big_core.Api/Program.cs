@@ -41,6 +41,11 @@ app.UseSwaggerUI(options =>
     options.RoutePrefix = string.Empty;
 });
 
+app.UseCors(policy =>
+    policy.AllowAnyOrigin()
+          .AllowAnyMethod()
+          .AllowAnyHeader());
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseHttpsRedirection();
