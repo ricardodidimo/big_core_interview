@@ -3,7 +3,7 @@ using FluentResults;
 
 public class ValidationError : IError
 {
-    public List<IError> Reasons => new();
+    public List<IError> Reasons { get; } = new();
     public string Message { get; }
     public Dictionary<string, object> Metadata { get; } = new();
     public static readonly string PROPERTY_NAME_METADATA_KEY = "PropertyName";
@@ -13,7 +13,11 @@ public class ValidationError : IError
     {
         Message = $"Validation failed for property '{propertyName}'";
         Metadata[PROPERTY_NAME_METADATA_KEY] = propertyName;
-        Metadata[MESSAGES_METADATA_KEY] = messages.ToArray();
+
+        foreach (var errorMessage in messages)
+        {
+            Reasons.Add(new Error(errorMessage));
+        }
     }
 
     static public List<ValidationError> CreateErrorsList(List<FluentValidation.Results.ValidationFailure> validationFailures)
