@@ -8,6 +8,14 @@ public record GetOdometerTrackerListDTO(
     int TotalPages
 );
 
+public enum VehicleStatus
+{
+    Stopped,
+    Moving,
+    Delayed_Moving,
+    Delayed_Stopped
+}
+
 public record OdometerSummaryDTO(
     int? VehicleId,
     string? VehicleIdTms,
@@ -18,7 +26,7 @@ public record OdometerSummaryDTO(
     string? LicensePlate,
     double? OdometerKm,
     int? Speed,
-    bool? Moving,
+    VehicleStatus VehicleStatus,
     bool? Ignition,
     int? DriverId,
     string? DriverName,
