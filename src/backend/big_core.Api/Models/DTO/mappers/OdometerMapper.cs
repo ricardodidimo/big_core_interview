@@ -13,6 +13,16 @@ public static class OdometerMapper
         );
     }
 
+    private static VehicleStatus DeclareVehicleCurrentStatus(OdometerData data)
+    {
+        if (data.Delayed is true)
+        {
+            return data.Moving ? VehicleStatus.Delayed_Moving : VehicleStatus.Delayed_Stopped;
+        }
+
+        return data.Moving ? VehicleStatus.Moving : VehicleStatus.Stopped;
+    }
+
     private static OdometerSummaryDTO MapToSummary(OdometerData data)
     {
         return new OdometerSummaryDTO(
@@ -25,7 +35,7 @@ public static class OdometerMapper
             LicensePlate: data.LicensePlate,
             OdometerKm: data.OdometerKm,
             Speed: data.Speed,
-            Moving: data.Moving,
+            VehicleStatus: DeclareVehicleCurrentStatus(data),
             Ignition: data.Ignition,
             DriverId: data.DriverId,
             DriverName: data.DriverName,
