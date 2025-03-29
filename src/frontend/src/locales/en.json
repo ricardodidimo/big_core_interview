@@ -7,6 +7,13 @@
     "call_to_action_light": "Toggle theme (light)",
     "call_to_action_dark": "Toggle theme (dark)"
   },
+  "configure_visualization_modal": {
+    "title": "Configuration",
+    "cancel_btn": "Cancel",
+    "save_btn": "Save",
+    "pick_column_label": "Column",
+    "visible_columns_title": "Visible columns"
+  },
   "odometer_table_actions": {
     "records_per_page_label": "Items per page"
   },

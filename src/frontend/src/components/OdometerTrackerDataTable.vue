@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { useOdometerData } from '../composable/useOdometerData'
-import { translateVehicleStatus, type OdometerFilterParamsInput } from '../api/odometer'
+import { type OdometerFilterParamsInput } from '../api/odometer'
 import { useI18n } from 'vue-i18n'
+import ConfigureVisualizationModal, { type OdometerTrackerTableFields } from './odometerTrackerTable/ConfigureVisualizationModal.vue';
 
-const { t, locale } = useI18n();
+const { t } = useI18n();
 const { odometerData, loading, error, fetchOdometerData } = useOdometerData()
 
 const filters = ref<OdometerFilterParamsInput>({
@@ -17,6 +18,19 @@ const filters = ref<OdometerFilterParamsInput>({
 watch(filters, () => {
     fetchOdometerData(filters.value);
 }, { immediate: true, deep: true });
+
+const tableFields = ref<OdometerTrackerTableFields[]>();
+function updateFieldsVisualization(newVisualization: OdometerTrackerTableFields[]) {
+    tableFields.value = newVisualization;
+}
+
+function checkForReplacement(result?: Object | null) {
+    const replacement = "-";
+    if (result == null || result == undefined) return replacement;
+    if (typeof (result) == "string") return result == "" ? replacement : result
+
+    return result
+}
 </script>
 
 <template>
@@ -28,46 +42,27 @@ watch(filters, () => {
                 <v-select v-model="filters.Rows" :items="[10, 20, 50]"
                     :label="t('odometer_table_actions.records_per_page_label')" dense class="page-select"
                     :hide-details="true" density="compact" />
-                <v-pagination v-model="filters.Page" :size="40" prev-icon="fa fa-chevron-left"
+                <v-pagination v-model="filters.Page" :size="35" prev-icon="fa fa-chevron-left"
                     next-icon="fa fa-chevron-right" :length="odometerData?.totalPages" :total-visible="5" />
+
+                <ConfigureVisualizationModal @update-fields="updateFieldsVisualization" class="ml-4" />
             </div>
 
-            <v-data-table :items="odometerData?.data" :items-per-page="filters.Rows" class="table" dense hide-default-footer>
+            <v-data-table :items="odometerData?.data" :items-per-page="filters.Rows" class="table" dense
+                hide-default-footer>
                 <template v-slot:headers>
                     <tr>
-                        <th>{{ $t('odometer_table_header.fleet') }}</th>
-                        <th>{{ $t('odometer_table_header.operation') }}</th>
-                        <th>{{ $t('odometer_table_header.division') }}</th>
-                        <th>{{ $t('odometer_table_header.license_plate') }}</th>
-                        <th>{{ $t('odometer_table_header.odometer_km') }}</th>
-                        <th>{{ $t('odometer_table_header.speed') }}</th>
-                        <th>{{ $t('odometer_table_header.vehicle_status') }}</th>
-                        <th>{{ $t('odometer_table_header.ignition_status') }}</th>
-                        <th>{{ $t('odometer_table_header.driver') }}</th>
-                        <th>{{ $t('odometer_table_header.date') }}</th>
+                        <th class="text-center" v-for="(field, index) in tableFields" :key="index">
+                            {{ t(field.header) }}
+                        </th>
                     </tr>
                 </template>
 
                 <template v-slot:body>
                     <tr v-for="item in odometerData?.data" :key="item.vehicleId">
-                        <td>{{ item.vehicleIdTms ?? "-" }}</td>
-                        <td>{{ item.operationName ?? "-" }}</td>
-                        <td>{{ item.divisionName ?? "-" }}</td>
-                        <td>{{ item.licensePlate ?? "-" }}</td>
-                        <td>{{ item.odometerKm ?? "-" }}</td>
-                        <td>{{ item.speed ?? "-" }} km/h</td>
-                        <td>{{ translateVehicleStatus(item.vehicleStatus, t) }}</td>
-                        <td>{{ item.ignition ? $t('odometer_table_body.ignition_status_on') :
-                            $t('odometer_table_body.ignition_status_off') }}</td>
-                        <td>{{ item.driverName ?? "-" }}</td>
-                        <td v-if="item.dateProcess">{{ new Date(item.dateProcess).toLocaleString(locale, {
-                            year: 'numeric',
-                            month: '2-digit',
-                            day: '2-digit',
-                            hour: '2-digit',
-                            minute: '2-digit'
-                        }) }}</td>
-                        <td v-else>-</td>
+
+                        <td v-for="(field, index) in tableFields" :key="index">{{ checkForReplacement(field.body(item))
+                        }}</td>
                     </tr>
                 </template>
             </v-data-table>
