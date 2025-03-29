@@ -2,5 +2,9 @@
   "languages": {
     "english": "Inglês",
     "portuguese": "Português"
+  },
+  "theme_switch": {
+    "call_to_action_light": "Trocar tema (claro)",
+    "call_to_action_dark": "Trocar tema (escuro)"
   }
 }
