@@ -6,5 +6,28 @@
   "theme_switch": {
     "call_to_action_light": "Trocar tema (claro)",
     "call_to_action_dark": "Trocar tema (escuro)"
+  },
+  "odometer_table_actions": {
+    "records_per_page_label": "Itens por página"
+  },
+  "odometer_table_header": {
+    "fleet": "Frota",
+    "operation": "Operação",
+    "division": "Divisão",
+    "license_plate": "Placa",
+    "odometer_km": "Hodômetro (Km)",
+    "speed": "Velocidade",
+    "vehicle_status": "Status veículo",
+    "ignition_status": "Status Ignição",
+    "driver": "Motorista",
+    "date": "Data"
+  },
+  "odometer_table_body": {
+    "ignition_status_on": "Ligado",
+    "ignition_status_off": "Desligado",
+    "vehicle_status_moving": "Movimento",
+    "vehicle_status_stopped": "Parado",
+    "vehicle_status_delayed_moving": "Atrasado - Em movimento",
+    "vehicle_status_delayed_stopped": "Atrasado - Parado"
   }
 }

@@ -6,5 +6,28 @@
   "theme_switch": {
     "call_to_action_light": "Toggle theme (light)",
     "call_to_action_dark": "Toggle theme (dark)"
+  },
+  "odometer_table_actions": {
+    "records_per_page_label": "Items per page"
+  },
+  "odometer_table_header": {
+    "fleet": "Fleet",
+    "operation": "Operation",
+    "division": "Division",
+    "license_plate": "License Plate",
+    "odometer_km": "Odometer (Km)",
+    "speed": "Speed",
+    "vehicle_status": "Vehicle Status",
+    "ignition_status": "Ignition Status",
+    "driver": "Driver",
+    "date": "Date"
+  },
+  "odometer_table_body": {
+    "ignition_status_on": "ON",
+    "ignition_status_off": "OFF",
+    "vehicle_status_moving": "Moving",
+    "vehicle_status_stopped": "Stopped",
+    "vehicle_status_delayed_moving": "Delayed - Moving",
+    "vehicle_status_delayed_stopped": "Delayed - Stopped"
   }
 }
