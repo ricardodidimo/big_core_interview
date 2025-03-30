@@ -23,12 +23,12 @@ const availableLangs: {locale: string, I18Key: string}[] = [
 
 <template>
     <div>
-        <div>
-            <v-chip v-for="lang in availableLangs" @click="changeLanguage(lang.locale)">
-                <v-icon v-if="locale === lang.locale" class="mr-3 text">fas fa-square-check</v-icon>
+        <small> {{ t('languages.choose_lang')}}</small>
+            <v-chip v-for="lang in availableLangs" class="mx-1" :rounded="false" @click="changeLanguage(lang.locale)">
+                <v-icon v-if="locale === lang.locale" class="mr-3 text" icon="fas fa-flag" size="15" />
                 <p>{{ t(`languages.${lang.I18Key}`) }}</p>
             </v-chip>
-        </div>
+     
     </div>
 </template>
 

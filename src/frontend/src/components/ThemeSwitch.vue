@@ -25,12 +25,14 @@ onMounted(() => {
 </script>
 
 <template>
-
-    <v-container>
-        <v-btn @click="toggleTheme">
-             {{ isDark ? t('theme_switch.call_to_action_dark') : t('theme_switch.call_to_action_light') }}
+    <div>
+        <v-icon :icon="isDark ? 'fa fa-moon' : 'fa fa-sun'" class="mr-2 mt-1"/>
+        <v-btn @click="toggleTheme" density="default">
+            <p>
+                {{ isDark ? t('theme_switch.call_to_action_dark') : t('theme_switch.call_to_action_light') }}
+            </p>
         </v-btn>
-    </v-container>
+    </div>
 </template>
 
 <style scoped></style>

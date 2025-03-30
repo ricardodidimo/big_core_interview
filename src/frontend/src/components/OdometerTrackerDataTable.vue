@@ -93,10 +93,14 @@ function checkForReplacement(result?: Object | null) {
 
         </div>
         <div v-else>
-            <div class="my-2 d-flex justify-end align-center">
-                <v-skeleton-loader class="page-select-skeleton" :boilerplate="true" />
 
+            <div class="my-2 d-flex justify-space-between align-center">
+                <div>
+                    <v-skeleton-loader class="page-select-skeleton" />
+                </div>
+                
                 <div class="pagination-skeleton d-flex align-center">
+                    <v-skeleton-loader class="page-select-skeleton" />
                     <v-skeleton-loader class="pagination-icon" />
 
                     <v-skeleton-loader v-for="n in 4" :key="n" type="button" class="pagination-number" />
