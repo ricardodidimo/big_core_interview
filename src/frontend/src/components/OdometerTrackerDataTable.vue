@@ -21,9 +21,15 @@ const filters = ref<OdometerFilterParamsInput>(getFilters() ?? {
     LicensePlates: []
 });
 
-watch(filters, () => {
-    setFilters(filters.value)
-    fetchOdometerData(filters.value);
+function applyFilters(filtersUpdated: OdometerFilterParamsInput) {
+    filters.value = filtersUpdated
+}
+
+watch(filters, async () => {
+    await fetchOdometerData(filters.value);
+    if (error.value.length <= 0) {
+        setFilters(filters.value)
+    }
 }, { immediate: true, deep: true });
 
 const tableFields = ref<OdometerTrackerTableFields[]>();
@@ -42,14 +48,20 @@ function checkForReplacement(result?: Object | null) {
 
 <template>
     <v-container>
-        <v-alert v-if="error" type="error">{{ error }}</v-alert>
+        <div v-for="(error) in error" class="text-start">
+            <v-alert type="error" density="compact">
+                <v-icon icon="fa fa-xmark"></v-icon>
+                {{  t(`errors.validation_failed`) + t(`fields.${error.metadata.PropertyName}`) }}</v-alert>
+            <ul class="px-10">
+                <li v-for="(reason) in error.reasons">{{ t(`errors.${reason.message}`) }}</li>
+            </ul>
+        </div>
 
-        <div v-if="!loading && !error">
-            <div  class="w-100 d-flex justify-space-between align-center">
+        <div v-if="!loading">
+            <div class="w-100 d-flex justify-space-between align-center">
                 <div class="d-flex">
                     <p class="mr-1"> {{ t('odometer_table_actions.action') }}</p>
-                    <ConfigureFiltersModal :filters="filters"
-                        @apply-filters="(filtersUpdated) => filters = filtersUpdated" />
+                    <ConfigureFiltersModal :filters="filters" @apply-filters="applyFilters" />
                 </div>
                 <div class="my-2 d-flex justify-end align-center">
                     <v-select v-model="filters.Rows" :items="[10, 20, 50]"
@@ -57,7 +69,6 @@ function checkForReplacement(result?: Object | null) {
                         :hide-details="true" density="compact" />
                     <v-pagination v-model="filters.Page" :size="35" prev-icon="fa fa-chevron-left"
                         next-icon="fa fa-chevron-right" :length="odometerData?.totalPages" :total-visible="5" />
-    
                     <ConfigureVisualizationModal @update-fields="updateFieldsVisualization" class="ml-4" />
                 </div>
             </div>
@@ -74,9 +85,8 @@ function checkForReplacement(result?: Object | null) {
 
                 <template v-slot:body>
                     <tr v-for="item in odometerData?.data" :key="item.vehicleId">
-
-                        <td v-for="(field, index) in tableFields" :key="index">{{ checkForReplacement(field.body(item))
-                            }}</td>
+                        <td v-for="(field, index) in tableFields" :key="index">{{
+                            checkForReplacement(field.body(item)) }}</td>
                     </tr>
                 </template>
             </v-data-table>

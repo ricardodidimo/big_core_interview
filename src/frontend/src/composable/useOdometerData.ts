@@ -5,7 +5,7 @@ import type { ValidationErrorResponseList } from '../api'
 export function useOdometerData() {
   const odometerData = ref<OdometerTrackerResponse>()
   const loading = ref(false)
-  const error = ref<ValidationErrorResponseList>()
+  const error = ref<ValidationErrorResponseList>([])
 
   async function fetchOdometerData(filters: OdometerFilterParamsInput) {
     loading.value = true
