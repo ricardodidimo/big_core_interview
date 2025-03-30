@@ -17,6 +17,7 @@
   },
   "errors": {
     "validation_failed": "A validação falhou para o campo: ",
+    "API request failed due to exceed request limit": "Excedido o limite de requisições! Aguarde alguns segundos e tente novamente",
     "Required environment value was not found": "Valor de ambiente obrigatório não foi encontrado",
     "Start date is required": "A data de início é obrigatória",
     "End date is required": "A data de término é obrigatória",

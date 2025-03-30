@@ -17,6 +17,7 @@
   },
   "errors": {
     "validation_failed": "Validation failed for property: ",
+    "API request failed due to exceed request limit": "Too many requests! Await a few seconds and try again",
     "Required environment value was not found": "Required environment value was not found",
     "Start date is required": "Start date is required",
     "End date is required": "End date is required",

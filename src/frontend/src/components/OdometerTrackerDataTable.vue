@@ -49,8 +49,11 @@ function checkForReplacement(result?: Object | null) {
 <template>
     <v-container>
         <div v-for="(error) in error" class="text-start">
+            <v-alert v-if="error.reasons.length <= 0">
+                <p>{{ t(`errors.${error.message}`) }}</p>
+            </v-alert>
             <v-alert type="error" density="compact">
-                <v-icon icon="fa fa-xmark"></v-icon>
+                <v-icon icon="fa fa-xmark" />
                 {{  t(`errors.validation_failed`) + t(`fields.${error.metadata.PropertyName}`) }}</v-alert>
             <ul class="px-10">
                 <li v-for="(reason) in error.reasons">{{ t(`errors.${reason.message}`) }}</li>
