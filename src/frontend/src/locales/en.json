@@ -1,0 +1,72 @@
+{
+  "languages": {
+    "english": "english",
+    "portuguese": "portuguese"
+  },
+  "theme_switch": {
+    "call_to_action_light": "Toggle theme (light)",
+    "call_to_action_dark": "Toggle theme (dark)"
+  },
+  "fields": {
+    "StartDate": "Start date",
+    "EndDate": "End date",
+    "IdTms": "Fleets",
+    "LicensePlates": "License Plates",
+    "DivionIds": "Divisions"
+  },
+  "errors": {
+    "validation_failed": "Validation failed for property: ",
+    "Required environment value was not found": "Required environment value was not found",
+    "Start date is required": "Start date is required",
+    "End date is required": "End date is required",
+    "API request failed": "API request to external service failed",
+    "Unable to deserialize response": "Unable to deserialize response",
+    "Date cannot be in the future": "Date cannot be in the future",
+    "Start date cannot be greater than the end date": "Start date cannot be greater than the end date",
+    "End date cannot be lower than the start date": "End date cannot be lower than the start date",
+    "Page active must be zero or a positive number": "Page active must be zero or a positive number",
+    "Rows must be greater than zero": "Rows must be greater than zero"
+  },
+  "configure_visualization_modal": {
+    "title": "Configuration",
+    "cancel_btn": "Cancel",
+    "save_btn": "Save",
+    "pick_column_label": "Column",
+    "visible_columns_title": "Visible columns"
+  },
+  "configure_filters_modal": {
+    "ok_button": "Ok",
+    "modal_title": "Filter",
+    "date_interval": "Date interval",
+    "division": "Division",
+    "start_date": "Start Date",
+    "end_date": "End Date",
+    "fleet": "Fleet",
+    "license_plate": "License Plate",
+    "select_divisions": "Select Divisions"
+  },
+  "odometer_table_actions": {
+    "action": "Odometer search",
+    "records_per_page_label": "Items per page"
+  },
+  "odometer_table_header": {
+    "fleet": "Fleet",
+    "operation": "Operation",
+    "division": "Division",
+    "license_plate": "License Plate",
+    "odometer_km": "Odometer (Km)",
+    "speed": "Speed",
+    "vehicle_status": "Vehicle Status",
+    "ignition_status": "Ignition Status",
+    "driver": "Driver",
+    "date": "Date"
+  },
+  "odometer_table_body": {
+    "ignition_status_on": "ON",
+    "ignition_status_off": "OFF",
+    "vehicle_status_moving": "Moving",
+    "vehicle_status_stopped": "Stopped",
+    "vehicle_status_delayed_moving": "Delayed - Moving",
+    "vehicle_status_delayed_stopped": "Delayed - Stopped"
+  }
+}

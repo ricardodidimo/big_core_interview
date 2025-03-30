@@ -1,0 +1,72 @@
+{
+  "languages": {
+    "english": "Inglês",
+    "portuguese": "Português"
+  },
+  "theme_switch": {
+    "call_to_action_light": "Trocar tema (claro)",
+    "call_to_action_dark": "Trocar tema (escuro)"
+  },
+  "fields": {
+    "StartDate": "Data inicial",
+    "EndDate": "Data final",
+    "IdTms": "Frota(s)",
+    "LicensePlates": "Placa(s)",
+    "DivionIds": "Divisões"
+  },
+  "errors": {
+    "validation_failed": "A validação falhou para o campo: ",
+    "Required environment value was not found": "Valor de ambiente obrigatório não foi encontrado",
+    "Start date is required": "A data de início é obrigatória",
+    "End date is required": "A data de término é obrigatória",
+    "API request failed": "Falha na solicitação à API externa",
+    "Unable to deserialize response": "Não foi possível desserializar a resposta",
+    "Date cannot be in the future": "A data não pode estar no futuro",
+    "Start date cannot be greater than the end date": "A data de início não pode ser maior que a data de término",
+    "End date cannot be lower than the start date": "A data de término não pode ser menor que a data de início",
+    "Page active must be zero or a positive number": "A página ativa deve ser zero ou um número positivo",
+    "Rows must be greater than zero": "O número de linhas deve ser maior que zero"
+  },
+  "configure_visualization_modal": {
+    "title": "Configuração",
+    "cancel_btn": "Cancelar",
+    "save_btn": "Salvar",
+    "pick_column_label": "Coluna",
+    "visible_columns_title": "Colunas vísiveis"
+  },
+  "configure_filters_modal": {
+    "ok_button": "Ok",
+    "modal_title": "Filtro",
+    "date_interval": "Intervalo de data",
+    "division": "Divisão",
+    "start_date": "Data de Início",
+    "end_date": "Data de Fim",
+    "fleet": "Frota",
+    "license_plate": "Placa",
+    "select_divisions": "Selecionar Divisão"
+  },
+  "odometer_table_actions": {
+    "action": "Consulta Hodômetro",
+    "records_per_page_label": "Itens por página"
+  },
+  "odometer_table_header": {
+    "fleet": "Frota",
+    "operation": "Operação",
+    "division": "Divisão",
+    "license_plate": "Placa",
+    "odometer_km": "Hodômetro (Km)",
+    "speed": "Velocidade",
+    "vehicle_status": "Status veículo",
+    "ignition_status": "Status Ignição",
+    "driver": "Motorista",
+    "date": "Data"
+  },
+  "odometer_table_body": {
+    "ignition_status_on": "Ligado",
+    "ignition_status_off": "Desligado",
+    "vehicle_status_moving": "Movimento",
+    "vehicle_status_stopped": "Parado",
+    "vehicle_status_delayed_moving": "Atrasado - Em movimento",
+    "vehicle_status_delayed_stopped": "Atrasado - Parado"
+  }
+}

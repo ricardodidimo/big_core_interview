@@ -11,8 +11,8 @@ export interface OdometerFilterParamsInput {
   StartDate: string;
   EndDate: string;
   IdTms?: string[];
-  LicensePlate?: string[];
-  DivisionId?: number[];
+  LicensePlates?: string[];
+  DivisionIds?: number[];
   Rows: number;
   Page: number;
 }
@@ -31,6 +31,17 @@ export enum VehicleStatus {
   DELAYED_MOV = 2,
   DELAYED_STOPPED = 3
 }
+
+export const translateVehicleStatus = (id: VehicleStatus, tFunc: (key: string) => string): string => {
+  const statusMap: Record<VehicleStatus, string> = {
+    0: tFunc("odometer_table_body.vehicle_status_moving"),
+    1: tFunc("odometer_table_body.vehicle_status_stopped"),
+    2: tFunc("odometer_table_body.vehicle_status_delayed_moving"),
+    3: tFunc("odometer_table_body.vehicle_status_delayed_stopped"),
+  };
+
+  return statusMap[id] || "Unknown Status";
+};
 
 export interface OdometerTrackerData {
   vehicleId?: number;
