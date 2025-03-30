@@ -49,8 +49,11 @@ function checkForReplacement(result?: Object | null) {
 <template>
     <v-container>
         <div v-for="(error) in error" class="text-start">
+            <v-alert v-if="error.reasons.length <= 0">
+                <p>{{ t(`errors.${error.message}`) }}</p>
+            </v-alert>
             <v-alert type="error" density="compact">
-                <v-icon icon="fa fa-xmark"></v-icon>
+                <v-icon icon="fa fa-xmark" />
                 {{  t(`errors.validation_failed`) + t(`fields.${error.metadata.PropertyName}`) }}</v-alert>
             <ul class="px-10">
                 <li v-for="(reason) in error.reasons">{{ t(`errors.${reason.message}`) }}</li>
@@ -93,10 +96,14 @@ function checkForReplacement(result?: Object | null) {
 
         </div>
         <div v-else>
-            <div class="my-2 d-flex justify-end align-center">
-                <v-skeleton-loader class="page-select-skeleton" :boilerplate="true" />
 
+            <div class="my-2 d-flex justify-space-between align-center">
+                <div>
+                    <v-skeleton-loader class="page-select-skeleton" />
+                </div>
+                
                 <div class="pagination-skeleton d-flex align-center">
+                    <v-skeleton-loader class="page-select-skeleton" />
                     <v-skeleton-loader class="pagination-icon" />
 
                     <v-skeleton-loader v-for="n in 4" :key="n" type="button" class="pagination-number" />
@@ -111,7 +118,7 @@ function checkForReplacement(result?: Object | null) {
                 <template v-slot:headers>
                     <tr>
                         <th v-for="n in 8" :key="n">
-                            <v-skeleton-loader type="text" class="loading-header" width="80px"></v-skeleton-loader>
+                            <v-skeleton-loader type="text" class="loading-header" width="80px" />
                         </th>
                     </tr>
                 </template>
@@ -119,7 +126,7 @@ function checkForReplacement(result?: Object | null) {
                     <tr v-for="n in filters.Rows" :key="n">
                         <td v-for="m in 8" :key="m">
                             <v-skeleton-loader type="text" class="loading" elevation="0"
-                                width="100px"></v-skeleton-loader>
+                                width="100px" />
                         </td>
                     </tr>
                 </template>

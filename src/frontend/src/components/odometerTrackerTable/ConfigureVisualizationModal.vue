@@ -92,13 +92,13 @@ async function swapPositions(direction: 'up' | 'down', key: string) {
 
 <template>
     <div>
-        <v-icon icon="fa fa-gear" @click="isOpen = true"></v-icon>
+        <v-icon icon="fa fa-gear" @click="isOpen = true" />
 
         <v-dialog v-model="isOpen" max-width="500px">
             <v-card>
                 <v-card-title class="d-flex justify-space-between align-center">
                     <span>{{ t('configure_visualization_modal.title') }}</span>
-                    <v-btn icon="fa fa-close" rounded="0" variant="text" @click="closeModal"></v-btn>
+                    <v-btn icon="fa fa-close" rounded="0" variant="text" @click="closeModal" />
                 </v-card-title>
                 <v-card-text>
 
@@ -148,5 +148,3 @@ async function swapPositions(direction: 'up' | 'down', key: string) {
     </div>
 
 </template>
-
-<style scoped></style>

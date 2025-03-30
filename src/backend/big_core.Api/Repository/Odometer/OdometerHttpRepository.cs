@@ -47,6 +47,10 @@ public class OdometerHttpRepository(HttpClient httpClient, ICacheService cacheSe
         HttpResponseMessage response = await _httpClient.GetAsync(url);
         if (!response.IsSuccessStatusCode)
         {
+            if (response.StatusCode is System.Net.HttpStatusCode.TooManyRequests) {
+                return Result.Fail<GetOdometerTrackerListResultDTO>(ErrorMessages.API_REQUEST_FAILED_TOO_MANY_REQUESTS);
+            }
+
             return Result.Fail<GetOdometerTrackerListResultDTO>(ErrorMessages.API_REQUEST_FAILED_ERROR);
         }
 

@@ -5,6 +5,7 @@ public static class ErrorMessages
     public const string REQUIRED_ENVIRONMENT_VARIABLE_MISSING = "REQUIRED ENVIRONMENT VALUE WAS NOT FOUND";
     public const string REQUIRED_START_DATE = "Start date is required";
     public const string REQUIRED_END_DATE = "End date is required";
+    public const string API_REQUEST_FAILED_TOO_MANY_REQUESTS = "API request failed due to exceed request limit";
     public const string API_REQUEST_FAILED_ERROR = "API request failed";
     public const string UNEXPECTED_API_RESPONSE_ERROR = "Unable to deserialize response";
     public const string FUTURE_DATE_ERROR = "Date cannot be in the future";

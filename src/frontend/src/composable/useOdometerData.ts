@@ -8,6 +8,7 @@ export function useOdometerData() {
   const error = ref<ValidationErrorResponseList>([])
 
   async function fetchOdometerData(filters: OdometerFilterParamsInput) {
+    error.value = [];
     loading.value = true
     const data = await OdometerAPI.fetchOdometerTrackerData(filters)
     loading.value = false
