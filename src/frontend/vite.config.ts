@@ -3,5 +3,8 @@ import vue from '@vitejs/plugin-vue'
 import vuetify from 'vite-plugin-vuetify'
 
 export default defineConfig({
-  plugins: [vue(), vuetify()]
+  plugins: [vue(), vuetify()],
+  build: {
+    outDir: 'dist'
+  }
 })
