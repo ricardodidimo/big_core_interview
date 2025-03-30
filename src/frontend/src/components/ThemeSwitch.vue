@@ -2,17 +2,18 @@
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useTheme } from 'vuetify';
+import { getTheme, setTheme } from '../helpers/localStoragePersistence';
 
 
 const { t } = useI18n();
 const theme = useTheme();
-const isDark = ref(localStorage.getItem('user-theme') === 'dark');
+const isDark = ref(getTheme() === 'dark');
 
 const toggleTheme = () => {
     isDark.value = !isDark.value;
     document.body.classList.toggle('dark-theme', isDark.value);
     theme.global.name.value = isDark.value ? 'dark' : 'light';
-    localStorage.setItem('user-theme', isDark.value ? 'dark' : 'light');
+    setTheme(isDark.value ? 'dark' : 'light')
 };
 
 onMounted(() => {
