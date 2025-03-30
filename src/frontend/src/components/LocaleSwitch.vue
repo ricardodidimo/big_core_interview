@@ -31,5 +31,3 @@ const availableLangs: {locale: string, I18Key: string}[] = [
      
     </div>
 </template>
-
-<style scoped></style>

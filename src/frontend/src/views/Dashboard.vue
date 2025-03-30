@@ -5,5 +5,3 @@ import OdometerTrackerDataTable from '../components/OdometerTrackerDataTable.vue
 <template>
   <OdometerTrackerDataTable />
 </template>
-
-<style scoped></style>

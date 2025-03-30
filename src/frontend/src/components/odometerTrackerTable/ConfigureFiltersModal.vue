@@ -42,12 +42,12 @@ function removeItem(index: number) {
 </script>
 
 <template>
-    <v-icon icon="fa fa-filter" @click="isOpen = true"></v-icon>
+    <v-icon icon="fa fa-filter" @click="isOpen = true" />
     <v-dialog v-model="isOpen" max-width="500px">
         <v-card>
             <v-card-title class="d-flex justify-space-between align-center">
                 <span>{{ t('configure_filters_modal.modal_title') }}</span>
-                <v-btn icon="fa fa-close" variant="text" :rounded="false" @click="isOpen = false"></v-btn>
+                <v-btn icon="fa fa-close" variant="text" :rounded="false" @click="isOpen = false" />
             </v-card-title>
 
             <v-card-text>
@@ -55,9 +55,9 @@ function removeItem(index: number) {
                     <span>{{ t('configure_filters_modal.date_interval') }}</span>
                     <div class="d-flex">
                         <v-text-field v-model="tempFilters.StartDate" class="mr-2"
-                            :label="t('configure_filters_modal.start_date')" type="datetime-local" dense></v-text-field>
+                            :label="t('configure_filters_modal.start_date')" type="datetime-local" dense />
                         <v-text-field v-model="tempFilters.EndDate" :label="t('configure_filters_modal.end_date') "
-                            type="datetime-local" dense></v-text-field>
+                            type="datetime-local" dense />
                     </div>
                 </div>
 
@@ -74,7 +74,7 @@ function removeItem(index: number) {
                     <span>{{ t('configure_filters_modal.division') }}</span>
                     <v-select v-model="tempFilters.DivisionIds" :item-title="(d) => `${d.id} | ${d.name}`"
                         item-value="id" :items="allDivisions" :label="t('configure_filters_modal.select_divisions')"
-                        multiple dense clearable></v-select>
+                        multiple dense clearable />
 
                     <v-chip-group v-if="tempFilters.DivisionIds?.length" prev-icon="fa fa-arrow-left"
                         next-icon="fa fa-arrow-right" show-arrows>
@@ -93,5 +93,3 @@ function removeItem(index: number) {
         </v-card>
     </v-dialog>
 </template>
-
-<style scoped></style>

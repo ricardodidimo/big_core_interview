@@ -34,5 +34,3 @@ onMounted(() => {
         </v-btn>
     </div>
 </template>
-
-<style scoped></style>

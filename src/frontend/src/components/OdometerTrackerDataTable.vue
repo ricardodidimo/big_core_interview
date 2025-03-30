@@ -118,7 +118,7 @@ function checkForReplacement(result?: Object | null) {
                 <template v-slot:headers>
                     <tr>
                         <th v-for="n in 8" :key="n">
-                            <v-skeleton-loader type="text" class="loading-header" width="80px"></v-skeleton-loader>
+                            <v-skeleton-loader type="text" class="loading-header" width="80px" />
                         </th>
                     </tr>
                 </template>
@@ -126,7 +126,7 @@ function checkForReplacement(result?: Object | null) {
                     <tr v-for="n in filters.Rows" :key="n">
                         <td v-for="m in 8" :key="m">
                             <v-skeleton-loader type="text" class="loading" elevation="0"
-                                width="100px"></v-skeleton-loader>
+                                width="100px" />
                         </td>
                     </tr>
                 </template>

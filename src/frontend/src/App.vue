@@ -7,11 +7,11 @@ import ThemeSwitch from './components/ThemeSwitch.vue';
 <template>
   <div class="d-flex align-center justify-center">
     <a href="https://www.linkedin.com/in/ricardo-didimo-558630209/" target="_blank">
-      <v-icon icon="fa-brands fa-linkedin" color="primary" size="50" class="logo"></v-icon>
+      <v-icon icon="fa-brands fa-linkedin" color="primary" size="50" class="logo" />
     </a>
 
     <a href="https://github.com/ricardodidimo/big_core_interview" target="_blank">
-      <v-icon icon="fa-brands fa-vuejs" color="secondary" size="50" class="logo"></v-icon>
+      <v-icon icon="fa-brands fa-vuejs" color="secondary" size="50" class="logo" />
     </a>
 
   </div>
