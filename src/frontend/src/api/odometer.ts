@@ -11,8 +11,8 @@ export interface OdometerFilterParamsInput {
   StartDate: string;
   EndDate: string;
   IdTms?: string[];
-  LicensePlate?: string[];
-  DivisionId?: number[];
+  LicensePlates?: string[];
+  DivisionIds?: number[];
   Rows: number;
   Page: number;
 }

@@ -2,6 +2,7 @@
 import { translateVehicleStatus, type OdometerTrackerData } from '../../api/odometer';
 import { ref, defineEmits, onMounted, computed, nextTick } from 'vue';
 import { useI18n } from 'vue-i18n'
+import { getTablePreferences, setTablePreferences } from '../../helpers/localStoragePersistence';
 const { t, locale } = useI18n();
 
 const isOpen = ref(false);
@@ -9,10 +10,9 @@ const emit = defineEmits(['update-fields']);
 const closeModal = () => isOpen.value = false;
 
 onMounted(() => {
-    const configPreferences = localStorage.getItem("config-preferences")
+    const configPreferences = getTablePreferences();
     if (configPreferences != null) {
-        var obj: OdometerTrackerTableFields[] = JSON.parse(configPreferences);
-        tableFields.value = obj.map<OdometerTrackerTableFields>(field => ({
+        tableFields.value = configPreferences.map<OdometerTrackerTableFields>(field => ({
             ...field,
             body: tableFields.value.find(f => f.key === field.key)!.body!
         }));
@@ -22,7 +22,7 @@ onMounted(() => {
 })
 
 const updateFields = () => {
-    localStorage.setItem("config-preferences", JSON.stringify(tableFields.value));
+    setTablePreferences(tableFields.value);
     emit('update-fields', tableFields.value.filter(item => item.visible));
 };
 

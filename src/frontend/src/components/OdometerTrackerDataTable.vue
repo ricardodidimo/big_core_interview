@@ -6,21 +6,23 @@ import { useI18n } from 'vue-i18n'
 import ConfigureVisualizationModal, { type OdometerTrackerTableFields } from './odometerTrackerTable/ConfigureVisualizationModal.vue';
 import ConfigureFiltersModal from './odometerTrackerTable/ConfigureFiltersModal.vue';
 import { getUTCDatesIntervals } from '../helpers/dateFormatter';
+import { getFilters, setFilters } from '../helpers/localStoragePersistence';
 
 const { t } = useI18n();
 const { odometerData, loading, error, fetchOdometerData } = useOdometerData()
 
 const { startDate, endDate } = getUTCDatesIntervals();
-const filters = ref<OdometerFilterParamsInput>({
+const filters = ref<OdometerFilterParamsInput>(getFilters() ?? {
     StartDate: startDate,
     EndDate: endDate,
     Rows: 10,
     Page: 1,
     IdTms: [],
-    LicensePlate: []
+    LicensePlates: []
 });
 
 watch(filters, () => {
+    setFilters(filters.value)
     fetchOdometerData(filters.value);
 }, { immediate: true, deep: true });
 

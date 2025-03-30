@@ -32,6 +32,13 @@ const allDivisions: { id: number, name: string }[] = [
     { id: 55, name: "Ácido" },
     { id: 58, name: "Treinamento" }
 ];
+
+function removeItem(index: number) {
+    const updatedContainer = [...tempFilters.value.DivisionIds!];
+    updatedContainer.splice(index, 1);
+
+    tempFilters.value.DivisionIds = updatedContainer
+}
 </script>
 
 <template>
@@ -40,7 +47,7 @@ const allDivisions: { id: number, name: string }[] = [
         <v-card>
             <v-card-title class="d-flex justify-space-between align-center">
                 <span>{{ t('configure_filters_modal.modal_title') }}</span>
-                <v-btn icon="mdi-close" variant="text"></v-btn>
+                <v-btn icon="fa fa-close" variant="text" :rounded="false" @click="isOpen = false"></v-btn>
             </v-card-title>
 
             <v-card-text>
@@ -49,7 +56,7 @@ const allDivisions: { id: number, name: string }[] = [
                     <div class="d-flex">
                         <v-text-field v-model="tempFilters.StartDate" class="mr-2"
                             :label="t('configure_filters_modal.start_date')" type="datetime-local" dense></v-text-field>
-                        <v-text-field v-model="tempFilters.EndDate" :label="t('configure_filters_modal.end_date')"
+                        <v-text-field v-model="tempFilters.EndDate" :label="t('configure_filters_modal.end_date') "
                             type="datetime-local" dense></v-text-field>
                     </div>
                 </div>
@@ -58,20 +65,29 @@ const allDivisions: { id: number, name: string }[] = [
                     <MultiEntryInput :container="tempFilters.IdTms!" class="my-5"
                         :label="t('configure_filters_modal.fleet')"
                         @update:container="(val) => tempFilters.IdTms = val" />
-                    <MultiEntryInput :container="tempFilters.LicensePlate!"
+                    <MultiEntryInput :container="tempFilters.LicensePlates!"
                         :label="t('configure_filters_modal.license_plate')"
-                        @update:container="(val) => tempFilters.LicensePlate = val" />
+                        @update:container="(val) => tempFilters.LicensePlates = val" />
                 </div>
 
                 <div class="my-4">
                     <span>{{ t('configure_filters_modal.division') }}</span>
-                    <v-select v-model="tempFilters.DivisionId" :item-title="(d) => `${d.id} | ${d.name}`"
+                    <v-select v-model="tempFilters.DivisionIds" :item-title="(d) => `${d.id} | ${d.name}`"
                         item-value="id" :items="allDivisions" :label="t('configure_filters_modal.select_divisions')"
                         multiple dense clearable></v-select>
+
+                    <v-chip-group v-if="tempFilters.DivisionIds?.length" prev-icon="fa fa-arrow-left"
+                        next-icon="fa fa-arrow-right" show-arrows>
+                        <v-chip v-for="(item, index) in tempFilters.DivisionIds" :key="index"
+                            @click.stop="removeItem(index)">
+                            {{allDivisions.find(d => d.id === item)?.name}}
+                        </v-chip>
+                    </v-chip-group>
                 </div>
 
                 <div class="d-flex justify-end mt-3">
-                    <v-btn color="primary" @click="applyFilters">{{ t('configure_filters_modal.ok_button') }}</v-btn>
+                    <v-btn color="primary" @click="applyFilters">{{ t('configure_filters_modal.ok_button')
+                        }}</v-btn>
                 </div>
             </v-card-text>
         </v-card>
