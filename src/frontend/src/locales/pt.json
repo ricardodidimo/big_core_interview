@@ -14,7 +14,19 @@
     "pick_column_label": "Coluna",
     "visible_columns_title": "Colunas vísiveis"
   },
+  "configure_filters_modal": {
+    "ok_button": "Ok",
+    "modal_title": "Filtro",
+    "date_interval": "Intervalo de data",
+    "division": "Divisão",
+    "start_date": "Data de Início",
+    "end_date": "Data de Fim",
+    "fleet": "Frota",
+    "license_plate": "Placa",
+    "select_divisions": "Selecionar Divisão"
+  },
   "odometer_table_actions": {
+    "action": "Consulta Hodômetro",
     "records_per_page_label": "Itens por página"
   },
   "odometer_table_header": {

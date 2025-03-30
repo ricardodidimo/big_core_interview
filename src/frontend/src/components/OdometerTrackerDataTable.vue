@@ -4,15 +4,20 @@ import { useOdometerData } from '../composable/useOdometerData'
 import { type OdometerFilterParamsInput } from '../api/odometer'
 import { useI18n } from 'vue-i18n'
 import ConfigureVisualizationModal, { type OdometerTrackerTableFields } from './odometerTrackerTable/ConfigureVisualizationModal.vue';
+import ConfigureFiltersModal from './odometerTrackerTable/ConfigureFiltersModal.vue';
+import { getUTCDatesIntervals } from '../helpers/dateFormatter';
 
 const { t } = useI18n();
 const { odometerData, loading, error, fetchOdometerData } = useOdometerData()
 
+const { startDate, endDate } = getUTCDatesIntervals();
 const filters = ref<OdometerFilterParamsInput>({
-    StartDate: '2025-03-23T17:08Z',
-    EndDate: '2025-03-24T17:08Z',
+    StartDate: startDate,
+    EndDate: endDate,
     Rows: 10,
-    Page: 1
+    Page: 1,
+    IdTms: [],
+    LicensePlate: []
 });
 
 watch(filters, () => {
@@ -38,14 +43,21 @@ function checkForReplacement(result?: Object | null) {
         <v-alert v-if="error" type="error">{{ error }}</v-alert>
 
         <div v-if="!loading && !error">
-            <div class="my-2 d-flex justify-end align-center">
-                <v-select v-model="filters.Rows" :items="[10, 20, 50]"
-                    :label="t('odometer_table_actions.records_per_page_label')" dense class="page-select"
-                    :hide-details="true" density="compact" />
-                <v-pagination v-model="filters.Page" :size="35" prev-icon="fa fa-chevron-left"
-                    next-icon="fa fa-chevron-right" :length="odometerData?.totalPages" :total-visible="5" />
-
-                <ConfigureVisualizationModal @update-fields="updateFieldsVisualization" class="ml-4" />
+            <div  class="w-100 d-flex justify-space-between align-center">
+                <div class="d-flex">
+                    <p class="mr-1"> {{ t('odometer_table_actions.action') }}</p>
+                    <ConfigureFiltersModal :filters="filters"
+                        @apply-filters="(filtersUpdated) => filters = filtersUpdated" />
+                </div>
+                <div class="my-2 d-flex justify-end align-center">
+                    <v-select v-model="filters.Rows" :items="[10, 20, 50]"
+                        :label="t('odometer_table_actions.records_per_page_label')" dense class="page-select"
+                        :hide-details="true" density="compact" />
+                    <v-pagination v-model="filters.Page" :size="35" prev-icon="fa fa-chevron-left"
+                        next-icon="fa fa-chevron-right" :length="odometerData?.totalPages" :total-visible="5" />
+    
+                    <ConfigureVisualizationModal @update-fields="updateFieldsVisualization" class="ml-4" />
+                </div>
             </div>
 
             <v-data-table :items="odometerData?.data" :items-per-page="filters.Rows" class="table" dense
@@ -62,7 +74,7 @@ function checkForReplacement(result?: Object | null) {
                     <tr v-for="item in odometerData?.data" :key="item.vehicleId">
 
                         <td v-for="(field, index) in tableFields" :key="index">{{ checkForReplacement(field.body(item))
-                        }}</td>
+                            }}</td>
                     </tr>
                 </template>
             </v-data-table>
@@ -133,8 +145,7 @@ function checkForReplacement(result?: Object | null) {
 
 .page-select {
     width: auto;
-    max-width: 150px;
-
+    min-width: 150px;
 }
 
 .page-select-skeleton {

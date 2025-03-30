@@ -14,7 +14,19 @@
     "pick_column_label": "Column",
     "visible_columns_title": "Visible columns"
   },
+  "configure_filters_modal": {
+    "ok_button": "Ok",
+    "modal_title": "Filter",
+    "date_interval": "Date interval",
+    "division": "Division",
+    "start_date": "Start Date",
+    "end_date": "End Date",
+    "fleet": "Fleet",
+    "license_plate": "License Plate",
+    "select_divisions": "Select Divisions"
+  },
   "odometer_table_actions": {
+    "action": "Odometer search",
     "records_per_page_label": "Items per page"
   },
   "odometer_table_header": {
