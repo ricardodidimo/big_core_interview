@@ -1,4 +1,5 @@
 import axios, { type AxiosResponse } from "axios";
+import qs from "qs";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -6,6 +7,7 @@ const api = axios.create({
     "Content-Type": "application/json",
     Accept: "application/json",
   },
+  paramsSerializer: (params) => qs.stringify(params, { arrayFormat: 'repeat' }),
   responseType: "json",
 });
 
