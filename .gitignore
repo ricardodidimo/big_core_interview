@@ -30,7 +30,6 @@ yarn-error.log*
 pnpm-debug.log*
 pnpm-lock.yaml
 yarn.lock
-package-lock.json
 
 dist/
 .vite/
